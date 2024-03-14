@@ -28,8 +28,8 @@ cursor.execute("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY 
 cursor.execute("CREATE TABLE IF NOT EXISTS sess_keys (id INT AUTO_INCREMENT PRIMARY KEY, user VARCHAR(255), n TEXT, aes TEXT, iv TEXT)")
 
 # clear all the tables:
-cursor.execute("DELETE FROM users")
-cursor.execute("DELETE FROM sess_keys")
+# cursor.execute("DELETE FROM users")
+# cursor.execute("DELETE FROM sess_keys")
 
 
 conn.commit()

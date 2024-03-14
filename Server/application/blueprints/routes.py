@@ -76,10 +76,9 @@ def skills():
             body = request.json
             # get the skills from the body
             skills = body.get("skills")
-            resp = jsonify({"skills": skills})
-            return resp
+            
         else:
-            resp = jsonify({"error": "Not logged in"})
+            resp = jsonify({"logged": False})
             return resp
     else:
         # get cookie from header
