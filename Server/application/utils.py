@@ -14,15 +14,21 @@ def create_cookie(username):
     txt = f"name={username};time={time}"
     sign1, iv, key, n = sign(txt, n, key, iv)
     save_keys(username, n, key, iv)
+    txt = txt.encode()
     txt = encrypt_base(txt)
     sign1 = encrypt_base(sign1)
+    txt = txt.decode()
+    sign1 = sign1.decode()
     cookie = f"{txt}.{sign1}"
     return cookie
 
 def auth_cookie(cookie):
-    text, sign1 = cookie.split(".")
-    text = decrypt_base(text)
-    username = text.split(";")[0].split("=")[1]
+    try:
+        text, sign1 = cookie.split(".")
+        text = decrypt_base(text)
+        username = text.split(";")[0].split("=")[1]
+    except:
+        return False
     if not user_exists(username):
         return False
     n, key, iv = get_keys(username)

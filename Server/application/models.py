@@ -25,7 +25,8 @@ cursor = conn.cursor()
 
 # create table:
 cursor.execute("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), password VARCHAR(255), email VARCHAR(255), name VARCHAR(255))")
-cursor.execute("CREATE TABLE IF NOT EXISTS keys (id INT AUTO_INCREMENT PRIMARY KEY, user VARCHAR(255), n TEXT, key TEXT, iv TEXT)")
+cursor.execute("CREATE TABLE IF NOT EXISTS sess_keys (id INT AUTO_INCREMENT PRIMARY KEY, user VARCHAR(255), n TEXT, aes TEXT, iv TEXT)")
+
 
 conn.commit()
 
@@ -37,38 +38,47 @@ def sign(message, n="00", iv="00", key="00"):
         q = getPrime(1024)
         n = p*q
     e = 65537
+    message = message.encode()
     message = bytes_to_long(message)
     rsa = pow(message, e, n)
     rsa = long_to_bytes(rsa)
     #encrypt the rsa key with aes
     if iv == 0:
         iv = Random.new().read(AES.block_size)
+    else:
+        iv = long_to_bytes(iv)
     if key == 0:
         key = Random.new().read(16)
+    else:
+        key = long_to_bytes(key)
     cipher = AES.new(key, AES.MODE_CBC, iv)
     sign = cipher.encrypt(rsa)
+    key = bytes_to_long(key)
+    iv = bytes_to_long(iv)
     n, key, iv = hex(n)[2:], hex(key)[2:], hex(iv)[2:]
     return sign, iv, key, n
 
 def save_keys(user, n, key, iv):
     #check if they exist and update or else create
-    cursor.execute(f"SELECT * FROM keys WHERE user='{user}'")
+    cursor.execute(f"SELECT * FROM sess_keys WHERE user=%s", (user))
+    # print n from sess_keys
     keys = cursor.fetchall()
+
     if len(keys) == 0:
-        cursor.execute(f"INSERT INTO keys (user, n, key, iv) VALUES ('{user}', '{n}', '{key}', '{iv}')")
+        cursor.execute(f"INSERT INTO sess_keys (user, n, aes, iv) VALUES (%s, %s, %s, %s)", (user, n, key, iv))
     else:
-        cursor.execute(f"UPDATE keys SET n='{n}', key='{key}', iv='{iv}' WHERE user='{user}'")
+        cursor.execute(f"UPDATE sess_keys SET n=%s, aes=%s, iv=%s WHERE user=%s", (n, key, iv, user))
     conn.commit()
 
 def get_keys(user):
-    cursor.execute(f"SELECT * FROM keys WHERE user='{user}'")
+    cursor.execute(f"SELECT * FROM sess_keys WHERE user=%s", (user))
     keys = cursor.fetchall()
     if len(keys) == 0:
         return "00", "00", "00"
     return keys[0][2], keys[0][3], keys[0][4]
 
 def user_exists(username):
-    cursor.execute(f"SELECT * FROM users WHERE username='{username}'")
+    cursor.execute(f"SELECT * FROM users WHERE username=%s", (username))
     users = cursor.fetchall()
     if len(users) == 0:
         return False
@@ -76,7 +86,7 @@ def user_exists(username):
 
 def create_user(username, password, email, name):
     password = hashlib.sha256(password.encode()).hexdigest()
-    cursor.execute(f"INSERT INTO users (username, password, email, name) VALUES ('{username}', '{password}', '{email}', '{name}')")
+    cursor.execute(f"INSERT INTO users (username, password, email, name) VALUES (%s, %s, %s, %s)", (username, password, email, name))
     conn.commit()
 
 def encrypt_base(msg):
@@ -89,7 +99,7 @@ def decrypt_base(msg):
 
 def check_pass(username, password):
     password = hashlib.sha256(password.encode()).hexdigest()
-    cursor.execute(f"SELECT * FROM users WHERE username='{username}' AND password='{password}'")
+    cursor.execute(f"SELECT * FROM users WHERE username=%s AND password=%s", (username, password))
     users = cursor.fetchall()
     if len(users) == 0:
         return False
