@@ -31,6 +31,7 @@ const LogIn = () => {
         return response.json();
       })
       .then((response) => {
+        console.log(response)
         localStorage.setItem("session", response.cookie);
         location.href = "/";
       })
