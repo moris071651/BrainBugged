@@ -27,8 +27,8 @@ def connect():
     # create table:
     cursor.execute("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), password VARCHAR(255), email VARCHAR(255), name VARCHAR(255))")
     cursor.execute("CREATE TABLE IF NOT EXISTS sess_keys (id INT AUTO_INCREMENT PRIMARY KEY, user VARCHAR(255), n TEXT, aes TEXT, iv TEXT)")
-    #cerate table for skills that is one to many with users with FOREIGN KEYs
-    cursor.execute("CREATE TABLE IF NOT EXISTS skills (id INT AUTO_INCREMENT PRIMARY KEY, user_id INT, skill VARCHAR(255), FOREIGN KEY (user_id) REFERENCES users(id))")
+    cursor.execute("CREATE TABLE IF NOT EXISTS skills (id INT AUTO_INCREMENT PRIMARY KEY, skills TEXT)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS user_skills (id_user INT, id_skills INT, FOREIGN KEY (id_user) REFERENCES users(id), FOREIGN KEY (id_skills) REFERENCES skills(id)")
     # clear all the tables:
     # cursor.execute("DELETE FROM users")
     # cursor.execute("DELETE FROM sess_keys")
@@ -118,26 +118,21 @@ def check_pass(username, password):
     return True
 
 def put_skills(username, skills):
+    #get the id of the user
     cursor, conn = connect()
-    # create one to many for the user with FOREIGN KEY REFERENCES
-    cursor.execute(f"SELECT * FROM users WHERE username=%s", (username))
-    user = cursor.fetchall()
-    user_id = user[0][0]
+    id_user = cursor.execute(f"SELECT id FROM users WHERE username=%s", (username))
+    #get the id of the skills
     for skill in skills:
-        cursor.execute(f"SELECT * FROM skills WHERE user_id=%s AND skill=%s", (user_id, skill))
-        skills = cursor.fetchall()
-        if len(skills) == 0:
-            cursor.execute(f"INSERT INTO skills (user_id, skill) VALUES (%s, %s)", (user_id, skill))
-        else:
-            cursor.execute(f"UPDATE skills SET skill=%s WHERE user_id=%s", (skill, user_id))
+        cursor.execute(f"SELECT id FROM skills WHERE skills=%s", (skill))
+        id_skill = cursor.fetchall()
+        if len(id_skill) == 0:
+            cursor.execute(f"INSERT INTO skills (skills) VALUES (%s)", (skill))
+            id_skill = cursor.execute(f"SELECT id FROM skills WHERE skills=%s", (skill))
+        check = cursor.execute(f"SELECT * FROM user_skills WHERE id_user=%s AND id_skills=%s", (id_user, id_skill))
+        if len(check) == 0:
+            cursor.execute(f"INSERT INTO user_skills (id_user, id_skills) VALUES (%s, %s)", (id_user, id_skill))
     conn.commit()
 
 def get_skills(username):
-    cursor, conn = connect()
-    cursor.execute(f"SELECT * FROM users WHERE username=%s", (username))
-    user = cursor.fetchall()
-    user_id = user[0][0]
-    cursor.execute(f"SELECT * FROM skills WHERE user_id=%s", (user_id))
-    skills = cursor.fetchall()
-    return skills
+    pass
 
