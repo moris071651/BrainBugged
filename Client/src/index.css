@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --Color-Black: #131313;
+  --Color-Dark: #2A164A;
+  --Color-Red: #CD3663;
+
+  --Color-Main-100: #E0CFFC;
+  --Color-Main-200: #C29FFA;
+  --Color-Main-300: #AA6EF8;
+  --Color-Main-400: #8540F5;
+  --Color-Main-500: #6610F2;
+
+  --Color-Accent: #52DBFC;
+}
