@@ -13,9 +13,11 @@ const useCheckSession = ({ token, needRedirect = true, notLoggedUrl = "/login" }
       }).then((response) => {
         return response.json()
       }).then((response) => {
+        console.log(response)
+        debugger
         if (response.logged == true) {
           setIsLoggedIn(true);
-        } else if (location.href.indexOf("/login") === -1) {
+        } else if (location.href.indexOf("/login") === -1 && location.href.indexOf("/signup") === -1) {
           location.href = '/login'
 
           setIsLoggedIn(false);

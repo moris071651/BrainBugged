@@ -12,8 +12,6 @@ const SignUp = () => {
 
   const [confirmError, setConfirmError] = useState({});
 
-  const [alreadyFeched, setAlreadyFeched] = useState(false);
-
   const submitDisabled = useMemo(() => {
     if (email === "") return true;
     if (username === "") return true;
@@ -35,31 +33,28 @@ const SignUp = () => {
   ]);
 
   const sendUserData = () => {
-    if (!alreadyFeched) {
-      setAlreadyFeched(true);
-      fetch("/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          username: username,
-          name: firstName + " " + lastName,
-          password: password,
-        }),
+    fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        username: username,
+        name: firstName + " " + lastName,
+        password: password,
+      }),
+    })
+      .then((response) => {
+        return response.json();
       })
-        .then((response) => {
-          return response.json();
-        })
-        .then((response) => {
-          localStorage.setItem("session", response.cookie);
-          location.href = "/";
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
+      .then((response) => {
+        localStorage.setItem("session", response.cookie);
+        location.href = "/";
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   useEffect(() => {
