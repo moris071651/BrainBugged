@@ -1,0 +1,34 @@
+.NavBar {
+  width: 100%;
+  height: 6rem;
+  padding: 0 2rem;
+
+  top: 0;
+  left: 0;
+  position: sticky;
+
+  display: grid;
+  align-items: center;
+  grid-template-columns: min-content 1fr;
+
+  background-color: var(--Color-Dark);
+}
+
+.NavBar > * {
+  color: #FFFFFF;
+}
+
+.NavBar > div {
+  font-weight: bolder;
+  font-size: 2rem;
+}
+
+.NavBar > ul {
+  gap: 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+
+  font-size: 1.3rem;
+}
