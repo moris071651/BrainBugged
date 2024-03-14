@@ -133,6 +133,14 @@ def put_skills(username, skills):
             cursor.execute(f"INSERT INTO user_skills (id_user, id_skills) VALUES (%s, %s)", (id_user, id_skill))
     conn.commit()
 
-def get_skills(username):
-    pass
+def get_user_skills(username):
+    cursor, conn = connect()
+    id_user = cursor.execute(f"SELECT id FROM users WHERE username=%s", (username))
+    cursor.execute(f"SELECT id_skills FROM user_skills WHERE id_user=%s", (id_user))
+    skills_ids = cursor.fetchall()
+    skills = []
+    for id in skills_ids:
+        cursor.execute(f"SELECT skills FROM skills WHERE id=%s", (id))
+        skills.append(cursor.fetchall())
+    return skills
 

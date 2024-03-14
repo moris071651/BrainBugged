@@ -87,7 +87,9 @@ def skills():
         cookie = request.headers.get("Authentication")
         # check if the cookie is valid
         if cookie and auth_cookie(cookie):
-            resp = jsonify({"logged": True})
+            skills_of_user = get_skills(cookie)
+            #make to json array with id skills
+            resp = jsonify({"skills": skills_of_user})
             return resp
         else:
             resp = jsonify({"logged": False})

@@ -57,5 +57,13 @@ def add_skills(cookie, skills):
         return True
     except:
         return False
+    
+def get_skills(cookie):
+    try:
+        username = get_user_from_cookie(cookie)
+        skills = get_user_skills(username)
+        return skills
+    except:
+        return False
 
 
