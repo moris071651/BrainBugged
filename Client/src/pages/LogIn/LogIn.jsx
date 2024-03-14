@@ -36,6 +36,7 @@ const LogIn = () => {
         location.href = "/";
       })
       .catch((error) => {
+        debugger;
         console.error(error);
       });
   };

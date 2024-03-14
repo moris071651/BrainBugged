@@ -50,7 +50,7 @@ const SignUp = () => {
       })
       .then((response) => {
         localStorage.setItem("session", response.cookie);
-        location.href = "/";
+        // location.href = "/";
       })
       .catch((error) => {
         console.error(error);

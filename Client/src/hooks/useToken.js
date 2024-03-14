@@ -9,7 +9,7 @@ const useToken = () => {
   }, [localStorage.getItem('session')]);
 
   return {
-    token: localStorage.getItem('session') || null
+    token: localStorage.getItem('session') || null,
   };
 };
 
