@@ -25,11 +25,11 @@ def register():
         # get cookie from header
         cookie = request.headers.get("Cookie")
         # check if the cookie is valid
-        if auth_cookie(cookie):
-            resp = jsonify({"message": "Usr exists"})
+        if cookie and auth_cookie(cookie):
+            resp = jsonify({"logged": True})
             return resp
         else:
-            resp = jsonify({"message": "User does not exist"})
+            resp = jsonify({"logged": False})
             return resp
         
 @api.route("/login", methods=["POST", "GET"])
@@ -56,9 +56,9 @@ def login():
         # get cookie from header
         cookie = request.headers.get("Cookie")
         # check if the cookie is valid
-        if auth_cookie(cookie):
-            resp = jsonify({"message": "Usr exists"})
+        if cookie and auth_cookie(cookie):
+            resp = jsonify({"logged": True})
             return resp
         else:
-            resp = jsonify({"message": "User does not exist"})
+            resp = jsonify({"logged": False})
             return resp
