@@ -12,6 +12,8 @@ const SignUp = () => {
 
   const [confirmError, setConfirmError] = useState({});
 
+  const [alreadyFeched, setAlreadyFeched] = useState(false);
+
   const submitDisabled = useMemo(() => {
     if (email === "") return true;
     if (username === "") return true;
@@ -33,28 +35,31 @@ const SignUp = () => {
   ]);
 
   const sendUserData = () => {
-    const formData = new FormData();
-
-    formData.append('Email', email)
-    formData.append('Username', username)
-    formData.append('FirstName', firstName)
-    formData.append('LastName', lastName)  
-    formData.append('Password', password)
-
-    fetch("/api/signup", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => {
-        return response.json();
+    if (!alreadyFeched) {
+      setAlreadyFeched(true);
+      fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          username: username,
+          name: firstName + " " + lastName,
+          password: password,
+        }),
       })
-      .then((response) => {
-        localStorage.setItem("session", response.token);
-        location.href = "/";
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+        .then((response) => {
+          return response.json();
+        })
+        .then((response) => {
+          localStorage.setItem("session", response.cookie);
+          location.href = "/";
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
 
   useEffect(() => {
@@ -62,7 +67,7 @@ const SignUp = () => {
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
-      sendUserData();
+      // sendUserData();
     });
   }, []);
 
@@ -87,7 +92,7 @@ const SignUp = () => {
   return (
     <div className="SignUp">
       <h1>Sign Up</h1>
-      <form id="SignUp">
+      <form onSubmit={sendUserData} id="SignUp">
         <div>
           <div>
             <input

@@ -5,23 +5,21 @@ const useCheckSession = ({ token, needRedirect = true, notLoggedUrl = "/login" }
   
   useEffect(() => {
     if (token !== null) {
-      fetch('/api/signup', {
+      fetch('/api/register', {
         method: "GET",
         headers: {
-          'Session': `token ${token}`
+          'Cookie': `${token}`
         },
       }).then((response) => {
         return response.json()
       }).then((response) => {
         if (response.logged == true) {
           setIsLoggedIn(true);
-        } else {
-          if (needRedirect) {
-            navigate(notLoggedUrl)
-          }
+        } else if (location.href.indexOf("/login") === -1) {
+          location.href = '/login'
 
           setIsLoggedIn(false);
-          localStorage.removeItem('session')
+          // localStorage.removeItem('session')
         }
       })
     }
