@@ -5,10 +5,10 @@ const useCheckSession = ({ token, needRedirect = true, notLoggedUrl = "/login" }
   
   useEffect(() => {
     if (token !== null) {
-      fetch('/api/signup', {
+      fetch('/api/register', {
         method: "GET",
         headers: {
-          'Session': `token ${token}`
+          'Coookie': `${token}`
         },
       }).then((response) => {
         return response.json()

@@ -8,48 +8,41 @@ const LogIn = () => {
 
   const [confirmError, setConfirmError] = useState({});
 
+  const [alreadyFeched, setAlreadyFeched] = useState(false);
+
   const submitDisabled = useMemo(() => {
     if (username === "") return true;
     if (password === "") return true;
     if (confirmError.type) return true;
 
     return false;
-  }, [
-    username,
-    password,
-    confirmError,
-  ]);
+  }, [username, password, confirmError]);
 
   const sendUserData = () => {
-    const formData = new FormData();
-
-    formData.append('Username', username)
-    formData.append('Password', password)
-
-    fetch("/api/login", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => {
-        return response.json();
+    if (!alreadyFeched) {
+      setAlreadyFeched(true);
+      fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
       })
-      .then((response) => {
-        localStorage.setItem("session", response.token);
-        location.href = "/";
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+        .then((response) => {
+          return response.json();
+        })
+        .then((response) => {
+          localStorage.setItem("session", response.cookie);
+          // location.href = "/";
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
-
-  useEffect(() => {
-    let form = document.querySelector("#LogIn");
-
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      sendUserData();
-    });
-  }, []);
 
   useEffect(() => {
     const usernameValid = document.getElementById("Username").validity.valid;
@@ -64,10 +57,19 @@ const LogIn = () => {
     }
   }, [password, username]);
 
+  useEffect(() => {
+    let form = document.querySelector("#LogIn");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      // sendUserData();
+    });
+  }, []);
+
   return (
-    <div className="SignUp">
+    <div className="LogIn">
       <h1>Log In</h1>
-      <form id="LogIn">
+      <form id="LogIn" onSubmit={sendUserData}>
         <div>
           <div>
             <input
