@@ -50,11 +50,17 @@ def sign(message, n="00", iv="00", key="00"):
     n, key, iv = hex(n)[2:], hex(key)[2:], hex(iv)[2:]
     return sign, iv, key, n
 
-def save_key(user, n, key, iv):
-    cursor.execute(f"INSERT INTO keys (user, n, key, iv) VALUES ('{user}', '{n}', '{key}', '{iv}')")
+def save_keys(user, n, key, iv):
+    #check if they exist and update or else create
+    cursor.execute(f"SELECT * FROM keys WHERE user='{user}'")
+    keys = cursor.fetchall()
+    if len(keys) == 0:
+        cursor.execute(f"INSERT INTO keys (user, n, key, iv) VALUES ('{user}', '{n}', '{key}', '{iv}')")
+    else:
+        cursor.execute(f"UPDATE keys SET n='{n}', key='{key}', iv='{iv}' WHERE user='{user}'")
     conn.commit()
 
-def get_key(user):
+def get_keys(user):
     cursor.execute(f"SELECT * FROM keys WHERE user='{user}'")
     keys = cursor.fetchall()
     if len(keys) == 0:
@@ -69,5 +75,22 @@ def user_exists(username):
     return True
 
 def create_user(username, password, email, name):
+    password = hashlib.sha256(password.encode()).hexdigest()
     cursor.execute(f"INSERT INTO users (username, password, email, name) VALUES ('{username}', '{password}', '{email}', '{name}')")
     conn.commit()
+
+def encrypt_base(msg):
+    msg = b64encode(msg)
+    return msg
+
+def decrypt_base(msg):
+    msg = b64decode(msg)
+    return msg
+
+def check_pass(username, password):
+    password = hashlib.sha256(password.encode()).hexdigest()
+    cursor.execute(f"SELECT * FROM users WHERE username='{username}' AND password='{password}'")
+    users = cursor.fetchall()
+    if len(users) == 0:
+        return False
+    return True
