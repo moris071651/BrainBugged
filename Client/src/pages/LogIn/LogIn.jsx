@@ -33,7 +33,6 @@ const LogIn = () => {
       .then((response) => {
         console.log(response)
         localStorage.setItem("session", response.cookie);
-        debugger
         location.href = "/";
       })
       .catch((error) => {

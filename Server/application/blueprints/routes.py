@@ -23,7 +23,7 @@ def register():
         return resp
     else:
         # get cookie from header
-        cookie = request.headers.get("Cookie")
+        cookie = request.headers.get("Authentication")
         print(cookie)
         # check if the cookie is valid
         if cookie and auth_cookie(cookie):
@@ -55,7 +55,7 @@ def login():
             return resp
     else:
         # get cookie from header
-        cookie = request.headers.get("Cookie")
+        cookie = request.headers.get("Authentication")
         # check if the cookie is valid
         if cookie and auth_cookie(cookie):
             resp = jsonify({"logged": True})
@@ -82,7 +82,7 @@ def skills():
             return resp
     else:
         # get cookie from header
-        cookie = request.headers.get("Cookie")
+        cookie = request.headers.get("Authentication")
         # check if the cookie is valid
         if cookie and auth_cookie(cookie):
             resp = jsonify({"logged": True})

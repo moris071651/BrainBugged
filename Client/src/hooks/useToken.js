@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 const useToken = () => {
   const [token, setToken] = useState(null);
-
   useEffect(() => {
     let docToken = localStorage.getItem('session') || null
 
@@ -10,7 +9,7 @@ const useToken = () => {
   }, [localStorage.getItem('session')]);
 
   return {
-    token
+    token: localStorage.getItem('session') || null
   };
 };
 

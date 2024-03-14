@@ -28,8 +28,12 @@ function App() {
                 <SignUp />
               </Route>
             </>
-          )) ||
-            Hello}
+          ))}
+          {(isLoggedIn && (
+            <div>
+              hello
+            </div>
+            ))}
         </Switch>
       </div>
       <Footer />
