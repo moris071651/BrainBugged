@@ -8,8 +8,6 @@ const LogIn = () => {
 
   const [confirmError, setConfirmError] = useState({});
 
-  const [alreadyFeched, setAlreadyFeched] = useState(false);
-
   const submitDisabled = useMemo(() => {
     if (username === "") return true;
     if (password === "") return true;
@@ -19,29 +17,26 @@ const LogIn = () => {
   }, [username, password, confirmError]);
 
   const sendUserData = () => {
-    if (!alreadyFeched) {
-      setAlreadyFeched(true);
-      fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        }),
+    fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    })
+      .then((response) => {
+        return response.json();
       })
-        .then((response) => {
-          return response.json();
-        })
-        .then((response) => {
-          localStorage.setItem("session", response.cookie);
-          // location.href = "/";
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
+      .then((response) => {
+        localStorage.setItem("session", response.cookie);
+        location.href = "/";
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   useEffect(() => {
@@ -62,7 +57,6 @@ const LogIn = () => {
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
-      // sendUserData();
     });
   }, []);
 

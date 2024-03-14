@@ -53,8 +53,8 @@ const SignUp = () => {
           return response.json();
         })
         .then((response) => {
-          localStorage.setItem("session", response.token);
-          // location.href = "/";
+          localStorage.setItem("session", response.cookie);
+          location.href = "/";
         })
         .catch((error) => {
           console.error(error);
