@@ -77,6 +77,8 @@ def skills():
             # get the skills from the body
             skills = body.get("skills")
             add_skills(cookie, skills)
+            resp = jsonify({"added": True})
+            return resp
         else:
             resp = jsonify({"logged": False})
             return resp
