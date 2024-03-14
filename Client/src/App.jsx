@@ -7,19 +7,28 @@ import SignUp from './pages/SignUp/SignUp.jsx'
 import LogIn from './pages/LogIn/LogIn.jsx'
 
 import "./App.css";
+import useToken from './hooks/useToken.js'
+import useCheckSession from './hooks/useCheckSession.js'
 
 function App() {
+  const { token } = useToken();
+  const { isLoggedIn } = useCheckSession({ token });
+
   return (
     <Router>
       <NavBar />
       <div className="App">
         <Switch>
-          <Route exact path="/login">
-            <LogIn />
-          </Route>
-          <Route exact path="/signup">
-            <SignUp />
-          </Route>
+          {!isLoggedIn && 
+            <>
+              <Route exact path="/login">
+                <LogIn />
+              </Route>
+              <Route exact path="/signup">
+                <SignUp />
+              </Route>            
+            </>
+          }
         </Switch>
       </div>
       <Footer />
