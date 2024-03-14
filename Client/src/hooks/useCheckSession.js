@@ -16,7 +16,7 @@ const useCheckSession = ({ token, needRedirect = true, notLoggedUrl = "/login" }
         if (response.logged == true) {
           setIsLoggedIn(true);
         } else if (location.href.indexOf("/login") === -1 && location.href.indexOf("/signup") === -1) {
-          location.href = '/login'
+          // location.href = '/login'
           // localStorage.removeItem('session')
         }
       })
