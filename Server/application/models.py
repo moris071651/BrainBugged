@@ -13,26 +13,27 @@ load_dotenv()
 pwd = os.getenv("DB_PASSWORD")
 
 # connect to db:
-conn = pymysql.connect(
-    host="mysql-925bda8-codo1.a.aivencloud.com",
-    user="avnadmin",
-    password=pwd,
-    database="defaultdb",
-    port=17734
-)
+def connect():
+    conn = pymysql.connect(
+        host="mysql-925bda8-codo1.a.aivencloud.com",
+        user="avnadmin",
+        password=pwd,
+        database="defaultdb",
+        port=17734
+    )
 
-cursor = conn.cursor()
+    cursor = conn.cursor()
 
-# create table:
-cursor.execute("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), password VARCHAR(255), email VARCHAR(255), name VARCHAR(255))")
-cursor.execute("CREATE TABLE IF NOT EXISTS sess_keys (id INT AUTO_INCREMENT PRIMARY KEY, user VARCHAR(255), n TEXT, aes TEXT, iv TEXT)")
+    # create table:
+    cursor.execute("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), password VARCHAR(255), email VARCHAR(255), name VARCHAR(255))")
+    cursor.execute("CREATE TABLE IF NOT EXISTS sess_keys (id INT AUTO_INCREMENT PRIMARY KEY, user VARCHAR(255), n TEXT, aes TEXT, iv TEXT)")
+    # clear all the tables:
+    # cursor.execute("DELETE FROM users")
+    # cursor.execute("DELETE FROM sess_keys")
+    conn.commit()
+    return cursor, conn
 
-# clear all the tables:
-# cursor.execute("DELETE FROM users")
-# cursor.execute("DELETE FROM sess_keys")
 
-
-conn.commit()
 
 def sign(message, n="00", iv="00", key="00"):
     #generate rsa key
@@ -63,6 +64,7 @@ def sign(message, n="00", iv="00", key="00"):
     return sign, iv, key, n
 
 def save_keys(user, n, key, iv):
+    cursor, conn = connect()
     #check if they exist and update or else create
     cursor.execute(f"SELECT * FROM sess_keys WHERE user=%s", (user))
     # print n from sess_keys
@@ -75,6 +77,7 @@ def save_keys(user, n, key, iv):
     conn.commit()
 
 def get_keys(user):
+    cursor, conn = connect()
     cursor.execute(f"SELECT * FROM sess_keys WHERE user=%s", (user))
     keys = cursor.fetchall()
     if len(keys) == 0:
@@ -82,6 +85,7 @@ def get_keys(user):
     return keys[0][2], keys[0][3], keys[0][4]
 
 def user_exists(username):
+    cursor, conn = connect()
     cursor.execute(f"SELECT * FROM users WHERE username=%s", (username))
     users = cursor.fetchall()
     if len(users) == 0:
@@ -89,6 +93,7 @@ def user_exists(username):
     return True
 
 def create_user(username, password, email, name):
+    cursor, conn = connect()
     password = hashlib.sha256(password.encode()).hexdigest()
     cursor.execute(f"INSERT INTO users (username, password, email, name) VALUES (%s, %s, %s, %s)", (username, password, email, name))
     conn.commit()
@@ -102,6 +107,7 @@ def decrypt_base(msg):
     return msg
 
 def check_pass(username, password):
+    cursor, conn = connect()
     password = hashlib.sha256(password.encode()).hexdigest()
     cursor.execute(f"SELECT * FROM users WHERE username=%s AND password=%s", (username, password))
     users = cursor.fetchall()
