@@ -23,16 +23,18 @@ def create_cookie(username):
     return cookie
 
 def auth_cookie(cookie):
+    print("auth_cookie")
     try:
         text, sign1 = cookie.split(".")
         text = decrypt_base(text)
+        text = text.decode()
         username = text.split(";")[0].split("=")[1]
     except:
         return False
     if not user_exists(username):
         return False
     n, key, iv = get_keys(username)
-    sign2, _, _, _ = sign(text, n, key, iv)
+    sign2, _, _, _ = sign(text, n, iv, key)
     sign1 = decrypt_base(sign1)
     if sign1 == sign2:
         return True

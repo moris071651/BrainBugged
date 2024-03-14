@@ -27,6 +27,10 @@ cursor = conn.cursor()
 cursor.execute("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), password VARCHAR(255), email VARCHAR(255), name VARCHAR(255))")
 cursor.execute("CREATE TABLE IF NOT EXISTS sess_keys (id INT AUTO_INCREMENT PRIMARY KEY, user VARCHAR(255), n TEXT, aes TEXT, iv TEXT)")
 
+# clear all the tables:
+cursor.execute("DELETE FROM users")
+cursor.execute("DELETE FROM sess_keys")
+
 
 conn.commit()
 
@@ -55,7 +59,7 @@ def sign(message, n="00", iv="00", key="00"):
     sign = cipher.encrypt(rsa)
     key = bytes_to_long(key)
     iv = bytes_to_long(iv)
-    n, key, iv = hex(n)[2:], hex(key)[2:], hex(iv)[2:]
+    n, key, iv = hex(n), hex(key), hex(iv)
     return sign, iv, key, n
 
 def save_keys(user, n, key, iv):

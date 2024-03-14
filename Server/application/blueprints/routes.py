@@ -24,6 +24,7 @@ def register():
     else:
         # get cookie from header
         cookie = request.headers.get("Cookie")
+        print(cookie)
         # check if the cookie is valid
         if cookie and auth_cookie(cookie):
             resp = jsonify({"logged": True})
@@ -51,6 +52,34 @@ def login():
             return resp
         else:
             resp = jsonify({"error": "Incorrect password"})
+            return resp
+    else:
+        # get cookie from header
+        cookie = request.headers.get("Cookie")
+        # check if the cookie is valid
+        if cookie and auth_cookie(cookie):
+            resp = jsonify({"logged": True})
+            return resp
+        else:
+            resp = jsonify({"logged": False})
+            return resp
+    
+
+@api.route("/skills", methods=["POST", "GET"])
+def skills():
+    if request.method == "POST":
+        # get cookie from header
+        cookie = request.headers.get("Cookie")
+        # check if the cookie is valid
+        if cookie and auth_cookie(cookie):
+            # get the body as json
+            body = request.json
+            # get the skills from the body
+            skills = body.get("skills")
+            resp = jsonify({"skills": skills})
+            return resp
+        else:
+            resp = jsonify({"error": "Not logged in"})
             return resp
     else:
         # get cookie from header
