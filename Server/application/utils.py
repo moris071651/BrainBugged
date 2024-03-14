@@ -43,4 +43,15 @@ def auth_cookie(cookie):
 def check_password(username, password):
     return check_pass(username, password)
 
+def get_user_from_cookie(cookie):
+    text, _ = cookie.split(".")
+    text = decrypt_base(text)
+    text = text.decode()
+    username = text.split(";")[0].split("=")[1]
+    return username
+
+def add_skills(cookie, skills):
+    username = get_user_from_cookie(cookie)
+    
+
 
