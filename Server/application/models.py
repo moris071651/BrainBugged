@@ -27,8 +27,8 @@ def connect():
     # create table:
     cursor.execute("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), password VARCHAR(255), email VARCHAR(255), name VARCHAR(255))")
     cursor.execute("CREATE TABLE IF NOT EXISTS sess_keys (id INT AUTO_INCREMENT PRIMARY KEY, user VARCHAR(255), n TEXT, aes TEXT, iv TEXT)")
-    cursor.execute("CREATE TABLE IF NOT EXISTS skills (id INT AUTO_INCREMENT PRIMARY KEY, skills TEXT)")
-    cursor.execute("CREATE TABLE IF NOT EXISTS user_skills (id_user INT, id_skills INT, FOREIGN KEY (id_user) REFERENCES users(id), FOREIGN KEY (id_skills) REFERENCES skills(id)")
+    #cursor.execute("CREATE TABLE IF NOT EXISTS skills (id INT AUTO_INCREMENT PRIMARY KEY, skills TEXT)")
+    #cursor.execute("CREATE TABLE IF NOT EXISTS user_skills (id_user INT, id_skills INT, FOREIGN KEY (id_user) REFERENCES users(id), FOREIGN KEY (id_skills) REFERENCES skills(id)")
     # clear all the tables:
     # cursor.execute("DELETE FROM users")
     # cursor.execute("DELETE FROM sess_keys")

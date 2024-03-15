@@ -31,9 +31,12 @@ const LogIn = () => {
         return response.json();
       })
       .then((response) => {
-        console.log(response)
-        localStorage.setItem("session", response.cookie);
-        location.href = "/";
+        if (response?.error) {
+          alert(response.error)
+        } else if (response?.cookie) {
+          localStorage.setItem("session", response.cookie);
+          location.href = "/";
+        }
       })
       .catch((error) => {
         debugger;

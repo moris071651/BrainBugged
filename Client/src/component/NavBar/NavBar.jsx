@@ -9,18 +9,18 @@ const NavBar = () =>  {
   return (
     <div className="NavBar">
       <div>
-        <Link class="navbar-brand" href="#">
+        <Link className="navbar-brand" href="#">
           (CO)do
         </Link>
       </div>
-      <ul class="navbar-nav">
-        <li class="nav-item">
+      <ul className="navbar-nav">
+        <li className="nav-item">
           <Link className="nav-link">About</Link>
         </li>
-        <li class="nav-item">
+        <li className="nav-item">
           <Link className="nav-link">Your todays theme</Link>
         </li>
-        <li class="nav-item">
+        <li className="nav-item">
           <Link className="nav-link">Your account</Link>
         </li>
       </ul>
