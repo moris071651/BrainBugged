@@ -259,3 +259,38 @@ def get_enrolled_projects(username):
         proj = cursor.fetchone()
         titles.append(proj[0])
     return titles
+
+def get_percentage(project_skills, user_skills):
+    percentage = 0
+    base = len(project_skills)
+    for skill in project_skills:
+        if skill in user_skills:
+            percentage += 1
+    percentage = (percentage/base)*100
+    return percentage
+
+def find_max_precentages(all_precetages):
+    #all except below 30%
+    all_precetages = [perc for perc in all_precetages if perc > 30]
+    all_precetages.sort()
+    all_precetages = all_precetages[::-1]
+    return all_precetages
+
+def get_percentage_list(all_projects, user_skills):
+    cursor, conn = connect()
+    all_precetages = []
+    for project in all_projects:
+        cursor.execute(f"SELECT id FROM projects WHERE title=%s", (project))
+        id_project = cursor.fetchone()
+        id_project = id_project[0]
+        cursor.execute(f"SELECT id_skills FROM project_skills WHERE id_project=%s", (id_project))
+        skills_ids = cursor.fetchall()
+        skills_ids = [id[0] for id in skills_ids]
+        skills = []
+        for id in skills_ids:
+            cursor.execute(f"SELECT skill FROM skills WHERE id=%s", (id))
+            skill = cursor.fetchone()
+            skills.append(skill[0])
+        percentage = get_percentage(skills, user_skills)
+        all_precetages.append(percentage)
+    return all_precetages
