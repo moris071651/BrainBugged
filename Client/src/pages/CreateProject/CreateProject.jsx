@@ -12,7 +12,7 @@ const CreateProject = () => {
             placeholder="Описание на проекта"
           ></textarea>
           <textarea
-            id="TeamDesc"
+            id="HelpDesc"
             placeholder="Описание на екипа и/или какви хора бихте искали да видите в него"
           ></textarea>
         </div>
@@ -26,7 +26,7 @@ const CreateProject = () => {
             <p>Figma</p>
             <button>+</button>
           </div>
-          <button>Apply for project</button>
+          <button>Create project</button>
         </div>
       </div>
     </form>
