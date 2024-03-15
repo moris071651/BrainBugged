@@ -172,3 +172,12 @@ def user():
     else:
         resp = jsonify({"logged": False})
         return resp
+    
+@api.route("/ai_data", methods=["POST"])
+def ai_data():
+    # get the body as json
+    body = request.json
+    # get the data from the AI
+    data = gat_ai_data(body.get("title"))
+    resp = jsonify({"ai_short_description": data[0], "ai_points": [test for test in data[1].split("\n")[::2]], "ai_help": data[2]})
+    return resp
