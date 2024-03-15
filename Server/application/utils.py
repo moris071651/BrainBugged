@@ -65,5 +65,37 @@ def get_skills(cookie):
         return skills
     except:
         return False
+    
+def create_project(cookie, project):
+    try:
+        username = get_user_from_cookie(cookie)
+        description = project.get("description")
+        skills = project.get("skills")
+        title = project.get("title")
+        team_description = project.get("team_description")
+        put_project(title, description, team_description, skills, username)
+        return True
+    except:
+        return False
+    
+def get_projects(cookie):
+    try:
+        username = get_user_from_cookie(cookie)
+        projects = []
+        for project in get_projects_owned(username):
+            projects.append(project)
+        for project in get_enrolled_projects(username):
+            projects.append(project)
+        return projects
+    except:
+        return False
+    
+def enroll_project(cookie, title):
+    try:
+        username = get_user_from_cookie(cookie)
+        put_enroll(username, title)
+        return True
+    except:
+        return False
 
 

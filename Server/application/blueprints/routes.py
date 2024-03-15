@@ -94,3 +94,35 @@ def skills():
         else:
             resp = jsonify({"logged": False})
             return resp
+        
+@api.route("/projects", methods=["POST", "GET"])
+def projects():
+    if request.method == "POST":
+        # get cookie from header
+        cookie = request.headers.get("Authentication")
+        # check if the cookie is valid
+        if cookie and auth_cookie(cookie):
+            # get the body as json
+            body = request.json
+            # create the project
+            if create_project(cookie, body):
+                resp = jsonify({"created": True})
+            else:
+                resp = jsonify({"created": False})
+            return resp
+        else:
+            resp = jsonify({"logged": False})
+            return resp
+    else:
+        # get cookie from header
+        cookie = request.headers.get("Authentication")
+        # check if the cookie is valid
+        if cookie and auth_cookie(cookie):
+            # get the projects of the user
+            projects_of_user = get_projects(cookie)
+            #make to json array with id projects
+            resp = jsonify({"projects": projects_of_user})
+            return resp
+        else:
+            resp = jsonify({"logged": False})
+            return resp
