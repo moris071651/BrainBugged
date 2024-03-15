@@ -98,4 +98,15 @@ def enroll_project(cookie, title):
     except:
         return False
 
+def get_project_percent_list(cookie):
+    try:
+        username = get_user_from_cookie(cookie)
+        projects = get_projects_owned(username)
+        user_skills = get_user_skills(username)
+        project_percentage = get_percentage_list(projects, user_skills)
+        project_percentage = find_max_precentages(project_percentage)
+        return project_percentage
+    except:
+        return False
+
 

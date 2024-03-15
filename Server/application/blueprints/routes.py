@@ -126,3 +126,35 @@ def projects():
         else:
             resp = jsonify({"logged": False})
             return resp
+        
+@api.route("/enroll", methods=["POST", "GET"])
+def enroll():
+    if request.method == "POST":
+        # get cookie from header
+        cookie = request.headers.get("Authentication")
+        # check if the cookie is valid
+        if cookie and auth_cookie(cookie):
+            # get the body as json
+            body = request.json
+            # enroll the user in the project
+            if enroll_project(cookie, body.get("title")):
+                resp = jsonify({"enrolled": True})
+            else:
+                resp = jsonify({"enrolled": False})
+            return resp
+        else:
+            resp = jsonify({"logged": False})
+            return resp
+    else:
+        # get cookie from header
+        cookie = request.headers.get("Authentication")
+        # check if the cookie is valid
+        if cookie and auth_cookie(cookie):
+            # get the projects of the user
+            projects_percentage = get_project_percent_list(cookie)
+            #make to json array with id projects
+            resp = jsonify({"projects": projects_percentage})
+            return resp
+        else:
+            resp = jsonify({"logged": False})
+            return resp
