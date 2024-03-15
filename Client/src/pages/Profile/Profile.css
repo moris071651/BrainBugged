@@ -75,7 +75,7 @@
 .Profile > div:nth-child(2) > div > a {
   padding: 1rem 2rem;
   background-color: white;
-  box-shadow: 0 0 5px  rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 10px  rgba(0, 0, 0, 0.09);
 }
 
 .Profile > div:nth-child(2) > div > a > h3 {

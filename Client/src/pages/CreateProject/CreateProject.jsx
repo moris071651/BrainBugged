@@ -105,7 +105,7 @@ const CreateProject = () => {
             <p>Pizza eating</p>
             <p>Webflow</p>
             <p>Figma</p>
-            <div onClick={() => setIsOpen(true)}>+</div>
+            <div onClick={() => setIsOpen(true)} className="pointer">+</div>
           </div>
           <div className="ButtonHighlight">
           <button type="submit">

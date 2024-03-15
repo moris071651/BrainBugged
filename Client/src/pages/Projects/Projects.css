@@ -1,23 +1,7 @@
-/* body{
-    padding: 50px 50px 50px 50px;
-    
-} */
-
-
-h1{
-    font-family: "Inter";
-    font-weight: 900;
-    font-size: 3rem;
-    margin-top: .5rem;
-    margin-bottom: 1.5rem;
+.Projects{
+    padding: 3rem;
 }
 
-h2{
-    font-family: "Inter";
-    font-weight: 800;
-    font-size: 2.2rem;
-    margin: 0px 0px 15px 0px;
-}
 
 .basic-p{
     font-family: "Jura";
@@ -29,6 +13,14 @@ h3{
     font-family: "Inter";
     font-weight: 500;
     font-size: 1.3rem;    
+}
+h2{
+    margin-bottom: 50px;
+}
+
+.imgball{
+    width: 6rem;
+    margin-bottom: 20px;
 }
 
 .numbermatch{
@@ -48,43 +40,30 @@ h3{
 }
 
 .list-row{
-    /* min-height: 175px; */
-    /* display: flex; */
-    /* gap: 30px; */
-    /* border: 0px; 
-    align-items: center;
-    background-color: #fff;     */
-
-
-
     min-height: 175px;
     display: flex;
-    /* gap: 30px; */
     border: 0px;
     align-items: center;
     background-color: #fff;
     display: grid;
     grid-column-gap: 30px;
     grid-template-columns: 1fr 31fr auto;
-    /* justify-content: space-between; */
     grid-template-columns: repeat(auto-fit, minmax(100px, auto));
 }
 
 .list-inner-divider {
-    /* background-color: #8540F5; */
     height: 150px;
     border-right: 6px solid #8540F5;
-    /* width: 6px; */
 }
 
 .list-div-match{
     justify-content: center;
     display: flex;
-    justify-content: center;
     flex-direction: column;
     text-align: center;
     height: 100%;
     padding-left: 20px;
+    color: #8540F5;
 } 
 
 .list-div-desc{
@@ -100,15 +79,12 @@ h3{
     justify-content: center;
     display: flex;
     height: 100%;
-    /* width: 32%; */
     gap: 10px;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
     padding-left: 2%;
     padding-right: 2%;
-    /* background-color: rgb(107, 195, 195); */
-
 }
 
 .skillblock{
@@ -119,8 +95,6 @@ h3{
     width: fit-content;
     border-radius: 50px;
     font-size: 14px;
-    /* padding: */
-    /* margin: 5px 3px 5px 3px; */
 }
 
 .haveit{
@@ -144,5 +118,133 @@ h3{
 
 .list-row:hover {
     cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    box-shadow: 0 4px 5px  rgba(0, 0, 0, 0.1);
+}
+
+
+
+body{
+    padding: 0px;
+    margin: 0px;
+    font-family: "Jura";
+    height: 100%;
+    background-color: #ffffff;
+}
+
+.info_input{
+    width: 75%;
+    padding: 5px; 
+    border: 0px; 
+    border-left: .1rem solid;
+    background-color: #F5F5F5;
+    font-family: "Jura";
+    font-size: 1.2rem;
+    line-height: 1.3;
+    margin-bottom: 5px;
+    min-height: 400px;
+    max-height: 400px;
+    overflow: scroll;
+}
+
+.info_input:focus-within{
+    outline: none;
+}
+
+.bodydiv{
+    padding: 1rem 2rem 1rem 2rem;
+}
+.wide{
+    min-width: 220px;
+}
+
+.module-popup-div{ 
+    padding: 2rem;
+    background-color: #ffffff;
+    width: 90%;
+    height: 95%;
+    margin: auto;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+    box-shadow: 0 3px 4px  rgba(0, 0, 0, 0.115);
+
+}
+
+.module-cross{
+    margin-left: auto;
+    padding-top: 1rem;
+    margin-right: 1rem;
+    width:10px;
+    height:10px;
+    cursor: pointer;
+}
+
+.module-popup-left{
+    display: inline-block;
+    width: 60%;
+}
+
+.module-popup-right{
+    display: inline-block;
+    width: fit-content;
+    vertical-align:top;
+    height: 100%;
+    padding: 0 2.5% 0 2.5%;
+    width: 30%;
+}
+
+.purple-button-div{
+    margin-top: 2rem;
+    background-color: #B485FF;
+    border-radius: 10px;
+    width: fit-content;
+}
+
+.purple-button-but{
+    font-family: "Inter";
+    font-weight: 800;
+    font-size: 1.2rem;
+    background-color: transparent;
+    padding: 5px 20px 5px 20px;
+    border-radius: 10px;
+    margin: -5px -5px 0px 0px;
+}
+
+
+.skillblock{
+    display: inline-block;
+    color: black;
+    background-color: #D9D9D9;
+    padding: 5px 20px 5px 20px; 
+    width: fit-content;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    margin: 5px 3px 5px 3px;
+}
+
+.haveit{
+    background-color: #B485FF;
+}
+
+.answer-card{
+    width: 40%;
+    margin: 0% 2.5% 0% 2.5%;
+    background-color: #ffffff;
+    filter: drop-shadow(rgba(0, 0, 0, 0.071) 0rem 1px 10px);
+    padding: 2.5%;
+}
+
+.basic-button{
+    font-family: "Inter";
+    font-weight: 800;
+    font-size: 1rem;
+    background-color: transparent;
+    border-radius: 7px;
+    border-width: 0px;
+    height: 2.4rem;
+    color: #ffffff;
+}
+
+.imageperson{
+    width: 25%;
+    margin-bottom: 20px;
 }

@@ -89,6 +89,10 @@
   border-radius: 50px;
 }
 
+.pointer{
+  cursor: pointer;
+}
+
 .CreateProject > div > div:nth-child(2) > div > button {
   background-color: transparent;
   text-align: center;
