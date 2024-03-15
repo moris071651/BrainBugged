@@ -4,7 +4,7 @@ const useCheckSession = ({ token, needRedirect = true, notLoggedUrl = "/login" }
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     if (token !== null) {
-      fetch('/api/register', {
+      fetch('/api/login', {
         method: "GET",
         headers: {
           'Authentication': `${token}`
