@@ -58,6 +58,14 @@ def add_skills(cookie, skills):
     except:
         return False
     
+def get_user(cookie):
+    try:
+        username = get_user_from_cookie(cookie)
+        data = get_user_data(username)
+        return data
+    except:
+        return False
+    
 def get_skills(cookie):
     try:
         username = get_user_from_cookie(cookie)
@@ -73,8 +81,10 @@ def create_project(cookie, project):
         skills = project.get("skills")
         title = project.get("title")
         team_description = project.get("team_description")
-        put_project(title, description, team_description, skills, username)
-        return True
+        if put_project(title, description, team_description, skills, username):
+            return True
+        else:
+            return False
     except:
         return False
     
@@ -93,15 +103,17 @@ def get_projects(cookie):
 def enroll_project(cookie, title):
     try:
         username = get_user_from_cookie(cookie)
-        put_enroll(username, title)
-        return True
+        if put_enroll(username, title):
+            return True
+        else:
+            return False
     except:
         return False
 
 def get_project_percent_list(cookie):
     try:
         username = get_user_from_cookie(cookie)
-        projects = get_projects_owned(username)
+        projects = get_projects_except_owned(username)
         user_skills = get_user_skills(username)
         project_percentage = get_percentage_list(projects, user_skills)
         project_percentage = find_max_precentages(project_percentage)

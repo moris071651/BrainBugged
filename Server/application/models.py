@@ -25,7 +25,7 @@ def connect():
 
     cursor = conn.cursor()
 
-    #wipe all the tables:
+    # #wipe all the tables:
     # cursor.execute("DROP TABLE IF EXISTS enrolled_projects")
     # cursor.execute("DROP TABLE IF EXISTS owner_projects")
     # cursor.execute("DROP TABLE IF EXISTS project_skills")
@@ -42,7 +42,7 @@ def connect():
     
     # conn.commit()
 
-    # # create table:
+    # create table:
     cursor.execute("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), password VARCHAR(255), email VARCHAR(255), name VARCHAR(255))")
     cursor.execute("CREATE TABLE IF NOT EXISTS sess_keys (id INT AUTO_INCREMENT PRIMARY KEY, user VARCHAR(255), n TEXT, aes TEXT, iv TEXT)")
     cursor.execute("CREATE TABLE IF NOT EXISTS skills (id INT AUTO_INCREMENT PRIMARY KEY, skill TEXT)")
@@ -124,6 +124,8 @@ def user_exists(username):
 def create_user(username, password, email, name):
     cursor, conn = connect()
     password = hashlib.sha256(password.encode()).hexdigest()
+    name = name.strip()
+    name = name.split(" ")[0] + " " + name.split(" ")[-1]
     cursor.execute(f"INSERT INTO users (username, password, email, name) VALUES (%s, %s, %s, %s)", (username, password, email, name))
     conn.commit()
 
@@ -173,6 +175,39 @@ def put_skills(username, skills):
             except Exception as e:
                 print(e)
     conn.commit()
+
+def get_user_data(username):
+    cursor, conn = connect()
+    cursor.execute(f"SELECT * FROM users WHERE username=%s", (username))
+    user = cursor.fetchone()
+    user = {"username": user[1], "email": user[3], "name": user[4]}
+    return user
+
+def get_projects_except_owned(username):
+    cursor, conn = connect()
+    cursor.execute(f"SELECT id FROM users WHERE username=%s", (username))
+    id_user = cursor.fetchone()
+    id_user = id_user[0]
+    cursor.execute(f"SELECT title FROM projects")
+    all_projects = cursor.fetchall()
+    all_projects = [project[0] for project in all_projects]
+    cursor.execute(f"SELECT id_project FROM owner_projects WHERE id_owner=%s", (id_user))
+    projects = cursor.fetchall()
+    if projects:
+        projects = [project[0] for project in projects]
+        for project in projects:
+            cursor.execute(f"SELECT title FROM projects WHERE id=%s", (project))
+            proj = cursor.fetchone()
+            all_projects.remove(proj[0])
+    cursor.execute(f"SELECT id_project FROM enrolled_projects WHERE id_enrolled=%s", (id_user))
+    projects = cursor.fetchall()
+    if projects:
+        projects = [project[0] for project in projects]
+        for project in projects:
+            cursor.execute(f"SELECT title FROM projects WHERE id=%s", (project))
+            proj = cursor.fetchone()
+            all_projects.remove(proj[0])
+    return all_projects
 
 def get_user_skills(username):
     cursor, conn = connect()
@@ -243,8 +278,13 @@ def put_enroll(username, title):
     cursor.execute(f"SELECT id FROM projects WHERE title=%s", (title))
     id_project = cursor.fetchone()
     id_project = id_project[0]
+    cursor.execute(f"SELECT * FROM enrolled_projects WHERE id_enrolled=%s AND id_project=%s", (id_user, id_project))
+    check = cursor.fetchone()
+    if check:
+        return False
     cursor.execute(f"INSERT INTO enrolled_projects (id_enrolled, id_project) VALUES (%s, %s)", (id_user, id_project))
     conn.commit()
+    return True
 
 def get_enrolled_projects(username):
     cursor, conn = connect()

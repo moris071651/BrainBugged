@@ -158,3 +158,17 @@ def enroll():
         else:
             resp = jsonify({"logged": False})
             return resp
+        
+@api.route("/user", methods=["GET"])
+def user():
+    # get cookie from header
+    cookie = request.headers.get("Authentication")
+    # check if the cookie is valid
+    if cookie and auth_cookie(cookie):
+        # get the user data
+        user_data = get_user(cookie)
+        resp = jsonify({"data": user_data})
+        return resp
+    else:
+        resp = jsonify({"logged": False})
+        return resp
