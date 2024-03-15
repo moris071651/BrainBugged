@@ -3,8 +3,25 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Poppins';
+  font-family: 'Jura';
 }
+
+h1 {
+  font-family: 'Inter';
+}
+
+h1 {
+  font-family: 'Inter';
+}
+
+h2 {
+  font-family: 'Inter';
+}
+
+.Inter {
+  font-family: 'Inter';
+}
+
 
 :root {
   --Color-Black: #131313;

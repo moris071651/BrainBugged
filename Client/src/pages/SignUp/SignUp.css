@@ -8,7 +8,7 @@
 
 .SignUp > h1 {
   font-weight: 800;
-  font-size: 9.5rem;
+  font-size: 8rem;
   color: var(--Color-Main-400);
   text-align: center;
 }
@@ -31,7 +31,7 @@
 
 .SignUp > form input {
   font-size: 1.5rem;
-  width: 30vw;
+  width: 100%;
 }
 
 .SignUp > form > div:nth-child(2) {
@@ -52,7 +52,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
-  width: 30vw;
+  width: 100%;
 }
 
 .SignUp > form > div:nth-child(1) > div:nth-child(3) input {

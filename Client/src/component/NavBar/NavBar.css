@@ -1,6 +1,6 @@
 .NavBar {
   width: 100%;
-  height: 6rem;
+  height: 5rem;
   padding: 0 2rem;
 
   top: 0;
@@ -24,7 +24,7 @@
 }
 
 .NavBar > ul {
-  gap: 2rem;
+  gap: 3rem;
   width: 100%;
   display: flex;
   flex-direction: row;

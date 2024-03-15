@@ -8,7 +8,7 @@
 
 .LogIn > h1 {
   font-weight: 800;
-  font-size: 9.5rem;
+  font-size: 8rem;
   color: var(--Color-Main-400);
   text-align: center;
 }
@@ -31,7 +31,7 @@
 
 .LogIn > form input {
   font-size: 1.5rem;
-  width: 30vw;
+  width: 100%;
 }
 
 .LogIn > form > div:nth-child(2) {
