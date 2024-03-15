@@ -1,8 +1,8 @@
-import "./ApproveProject.css";
+import "./ApplicationProject.css";
 
-const ApproveProject = () => {
+const ApplicationProject = () => {
   return (
-    <form className="ApproveProject">
+    <form className="ApplicationProject">
       <div>
         <h3>Application for project</h3>
         <h1>Идея за Хактуес - “айде за пица”!</h1>
@@ -31,4 +31,4 @@ const ApproveProject = () => {
   );
 };
 
-export default ApproveProject;
+export default ApplicationProject;
