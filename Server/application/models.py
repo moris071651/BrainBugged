@@ -24,11 +24,32 @@ def connect():
 
     cursor = conn.cursor()
 
+    #wipe all the tables:
+    # cursor.execute("DROP TABLE IF EXISTS enrolled_projects")
+    # cursor.execute("DROP TABLE IF EXISTS owner_projects")
+    # cursor.execute("DROP TABLE IF EXISTS project_skills")
+    # cursor.execute("DROP TABLE IF EXISTS projects")
+    # cursor.execute("DROP TABLE IF EXISTS user_skills")
+    # cursor.execute("DROP TABLE IF EXISTS skills")
+    # cursor.execute("DROP TABLE IF EXISTS users")
+    # cursor.execute("DROP TABLE IF EXISTS sess_keys")
+    
+    
+    
+    
+    
+    
+    # conn.commit()
+
     # create table:
     cursor.execute("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), password VARCHAR(255), email VARCHAR(255), name VARCHAR(255))")
     cursor.execute("CREATE TABLE IF NOT EXISTS sess_keys (id INT AUTO_INCREMENT PRIMARY KEY, user VARCHAR(255), n TEXT, aes TEXT, iv TEXT)")
     cursor.execute("CREATE TABLE IF NOT EXISTS skills (id INT AUTO_INCREMENT PRIMARY KEY, skills TEXT)")
-    cursor.execute("CREATE TABLE IF NOT EXISTS user_skills (id_user INT, id_skills INT, FOREIGN KEY (id_user) REFERENCES users(id), FOREIGN KEY (id_skills) REFERENCES skills(id)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS user_skills (id_user INT PRIMARY KEY, id_skills INT)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS projects (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255), description TEXT, team_description TEXT)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS project_skills (id_project INT PRIMARY KEY, id_skills INT)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS owner_projects (id_owner INT PRIMARY KEY, id_project INT)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS enrolled_projects (id_enrolled INT PRIMARY KEY, id_project INT)")
     # clear all the tables:
     # cursor.execute("DELETE FROM users")
     # cursor.execute("DELETE FROM sess_keys")
@@ -144,3 +165,21 @@ def get_user_skills(username):
         skills.append(cursor.fetchall())
     return skills
 
+def put_project(title, description, team_description, skills, username):
+    cursor, conn = connect()
+    check = cursor.execute(f"SELECT * FROM projects WHERE title=%s", (title))
+    if len(check) != 0:
+        return False
+    cursor.execute(f"INSERT INTO projects (title, description, team_description) VALUES (%s, %s, %s)", (title, description, team_description))
+    id_project = cursor.execute(f"SELECT id FROM projects WHERE title=%s", (title))
+    id_owner = cursor.execute(f"SELECT id FROM users WHERE username=%s", (username))
+    cursor.execute(f"INSERT INTO owner_projects (id_owner, id_project) VALUES (%s, %s)", (id_owner, id_project))
+    for skill in skills:
+        cursor.execute(f"SELECT id FROM skills WHERE skills=%s", (skill))
+        id_skill = cursor.fetchall()
+        if len(id_skill) == 0:
+            cursor.execute(f"INSERT INTO skills (skills) VALUES (%s)", (skill))
+            id_skill = cursor.execute(f"SELECT id FROM skills WHERE skills=%s", (skill))
+        cursor.execute(f"INSERT INTO project_skills (id_project, id_skills) VALUES (%s, %s)", (id_project, id_skill))
+    conn.commit()
+    return True
