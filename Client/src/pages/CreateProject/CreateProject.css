@@ -20,7 +20,7 @@
   display: grid;
   padding-top: 2rem;
   gap: 2rem;
-  grid-template-columns: 40% 1fr;
+  grid-template-columns: 25fr 40fr;
 }
 
 .CreateProject > div > div:nth-child(1) {

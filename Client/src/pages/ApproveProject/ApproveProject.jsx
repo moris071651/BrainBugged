@@ -4,14 +4,14 @@ const ApproveProject = () => {
   return (
     <form className="ApproveProject">
       <div>
-        <h3>Отговори на проект</h3>
+        <h3>Application for project</h3>
         <h1>Идея за Хактуес - “айде за пица”!</h1>
       </div>
       <div>
         <div>
           <textarea
             id="ProjectDesc"
-            placeholder="Описание на проекта"
+            placeholder="Защо искате да участвате? С какво бихте допринесли на екипа?"
           ></textarea>
         </div>
         <div>
