@@ -9,9 +9,29 @@ from Crypto import Random
 from dotenv import load_dotenv
 import os
 import json
+from openai import OpenAI
 
 load_dotenv()
 pwd = os.getenv("DB_PASSWORD")
+api_key = os.getenv("API_KEY")
+
+def AI(prompt):
+    client = OpenAI(
+        api_key= api_key,
+    )
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo-0125",
+        messages=[
+            {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": prompt},
+            ],
+            }
+        ],
+        max_tokens=700,
+    )
+    return response.choices[0].message.content
 
 # connect to db:
 def connect():
@@ -48,7 +68,7 @@ def connect():
     cursor.execute("CREATE TABLE IF NOT EXISTS skills (id INT AUTO_INCREMENT PRIMARY KEY, skill TEXT)")
     # cursor.execute("CREATE TRIGGER IF NOT EXISTS stop_delete_skills BEFORE DELETE ON skills FOR EACH ROW BEGIN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'You cannot delete skills'; END")
     cursor.execute("CREATE TABLE IF NOT EXISTS user_skills (id INT AUTO_INCREMENT PRIMARY KEY, id_user INT, id_skills INT)")
-    cursor.execute("CREATE TABLE IF NOT EXISTS projects (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255), description TEXT, team_description TEXT)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS projects (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255), description TEXT, team_description TEXT, ai_short_descr TEXT, ai_problems TEXT, ai_idea_money TEXT)")
     cursor.execute("CREATE TABLE IF NOT EXISTS project_skills (id INT AUTO_INCREMENT PRIMARY KEY, id_project INT, id_skills INT)")
     cursor.execute("CREATE TABLE IF NOT EXISTS owner_projects (id INT AUTO_INCREMENT PRIMARY KEY, id_owner INT, id_project INT)")
     cursor.execute("CREATE TABLE IF NOT EXISTS enrolled_projects (id INT AUTO_INCREMENT PRIMARY KEY, id_enrolled INT, id_project INT)")
@@ -226,13 +246,13 @@ def get_user_skills(username):
         skills.append(skill[0])
     return skills
 
-def put_project(title, description, team_description, skills, username):
+def put_project(title, description, team_description, skills, username, ai_short_descr="", ai_problems="", ai_idea_money=""):
     cursor, conn = connect()
     cursor.execute(f"SELECT * FROM projects WHERE title=%s", (title))
     check = cursor.fetchall()
     if check:
         return False
-    cursor.execute(f"INSERT INTO projects (title, description, team_description) VALUES (%s, %s, %s)", (title, description, team_description))
+    cursor.execute(f"INSERT INTO projects (title, description, team_description, ai_short_descr, ai_problems, ai_idea_money) VALUES (%s, %s, %s, %s, %s, %s)", (title, description, team_description, ai_short_descr, ai_problems, ai_idea_money))
     cursor.execute(f"SELECT id FROM projects WHERE title=%s", (title))
     id_project = cursor.fetchone()
     id_project = id_project[0]
@@ -333,3 +353,52 @@ def get_percentage_list(all_projects, user_skills):
         percentage = get_percentage(skills, user_skills)
         all_precetages.append(json.dumps({"title": project, "percentage": percentage}))
     return all_precetages
+
+
+def get_AI_responce(title):
+    cursor, conn = connect()
+    cursor.execute(f"SELECT description FROM projects WHERE title=%s", (title))
+    description = cursor.fetchone()
+    description = description[0]
+    prompt = "Could you make this description shorter:\n"
+    prompt += description
+    response = AI(prompt)
+    resp = []
+    resp.append(response)
+    print(resp)
+    prompt = "Could you make 4 devided by a new line detailed punkts what could go wrong with this idea and nothing more:\n"
+    prompt += description
+    response = AI(prompt)
+    resp.append(response)
+    print(resp)
+    prompt = "Could you create text about this project:\n"
+    prompt += description
+    prompt += "I am having trouble with:\n"
+    prompt += "How to make money from this idea?"
+    response = AI(prompt)
+    resp.append(response)
+    print(resp)
+    return resp
+
+def check_ai_data(title):
+    cursor, conn = connect()
+    cursor.execute(f"SELECT ai_short_descr FROM projects WHERE title=%s", (title))
+    ai_short_descr = cursor.fetchone()
+    cursor.execute(f"SELECT ai_problems FROM projects WHERE title=%s", (title))
+    ai_problems = cursor.fetchone()
+    cursor.execute(f"SELECT ai_idea_money FROM projects WHERE title=%s", (title))
+    ai_idea_money = cursor.fetchone()
+    if ai_short_descr[0] == "" or ai_problems[0] == "" or ai_idea_money[0] == "":
+        return False
+    resp = []
+    resp.append(ai_short_descr[0])
+    resp.append(ai_problems[0])
+    resp.append(ai_idea_money[0])
+    return resp
+
+def update_ai_data(title, data):
+    cursor, conn = connect()
+    cursor.execute(f"UPDATE projects SET ai_short_descr=%s, ai_problems=%s, ai_idea_money=%s WHERE title=%s", (data[0], data[1], data[2], title))
+    conn.commit()
+    return True
+

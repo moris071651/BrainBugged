@@ -120,5 +120,13 @@ def get_project_percent_list(cookie):
         return project_percentage
     except:
         return False
-
+    
+def gat_ai_data(title):
+    data = check_ai_data(title)
+    if data:
+        return data
+    else:
+        data = get_AI_responce(title)
+        update_ai_data(title, data)
+        return data
 
