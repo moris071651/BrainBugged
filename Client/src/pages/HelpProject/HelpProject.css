@@ -7,10 +7,6 @@
   margin-bottom: 6rem;
 }
 
-.HelpProject > div:nth-child(1) {
-  margin-bottom: 5rem;
-}
-
 .HelpProject > div:nth-child(1) > h3 {
   font-size: 3rem;
   font-weight: bold;

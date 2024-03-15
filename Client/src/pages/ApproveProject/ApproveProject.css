@@ -1,37 +1,39 @@
-.CreateProject {
+.ApproveProject {
   display: grid;
-  grid-template-rows: min-content min-content 1fr;
+  grid-template-rows: min-content 1fr;
   width: 100%;
   padding: 2rem;
   align-items: stretch;
   height: calc(100vh - 6rem);
 }
 
-.CreateProject > input {
-  border: 0px;
-  width: 100%;
-  padding: 1rem;
-  font-size: large;
-  background-color: #F5F5F5;
-  border-left: 1px solid black;
+.ApproveProject > div:nth-child(1) > h3 {
+  font-size: 3rem;
+  font-weight: bold;
 }
 
-.CreateProject > div {
+.ApproveProject > div:nth-child(1) > h1 {
+  font-size: 6rem;
+  font-weight: bolder;
+  margin-bottom: 2rem;
+}
+
+.ApproveProject > div:nth-child(2) {
   display: grid;
   padding-top: 2rem;
   gap: 2rem;
   grid-template-columns: 40% 1fr;
 }
 
-.CreateProject > div > div:nth-child(1) {
+.ApproveProject > div:nth-child(2) > div:nth-child(1) {
   display: grid;
   gap: 2rem;
   align-items: stretch;
   justify-content: stretch;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr;
 }
 
-.CreateProject > div > div:nth-child(1) > textarea {
+.ApproveProject > div:nth-child(2) > div:nth-child(1) > textarea {
   width: 100%;
   border: 0;
   background-color: #F5F5F5;
@@ -42,17 +44,17 @@
   padding: 1rem;
 }
 
-.CreateProject > div > div:nth-child(2) {
+.ApproveProject > div:nth-child(2) > div:nth-child(2) {
   display: grid;
   grid-template-rows: min-content auto min-content;
 }
 
-.CreateProject > div > div:nth-child(2) > h2 {
+.ApproveProject > div:nth-child(2) > div:nth-child(2) > h2 {
   font-size: 2.5rem;
   font-weight: bold;
 }
 
-.CreateProject > div > div:nth-child(2) > div {
+.ApproveProject > div:nth-child(2) > div:nth-child(2) > div {
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
@@ -62,7 +64,7 @@
   gap: 1rem 2rem;
 }
 
-.CreateProject > div > div:nth-child(2) > div > * {
+.ApproveProject > div:nth-child(2) > div:nth-child(2) > div > * {
   background-color: #F5F5F5;
   padding: .4rem 2rem;
   font-size: large;
@@ -70,13 +72,13 @@
   border-radius: 50px;
 }
 
-.CreateProject > div > div:nth-child(2) > div > button {
+.ApproveProject > div:nth-child(2) > div:nth-child(2) > div > button {
   background-color: transparent;
   text-align: center;
   font-size: 2rem;
 }
 
-.CreateProject > div > div:nth-child(2) > button {
+.ApproveProject > div:nth-child(2) > div:nth-child(2) > button {
   justify-self: start;
   margin-left: 3rem;
   margin-bottom: 3rem;
@@ -89,4 +91,5 @@
 }
 
 /* TODO: It is broken, need fix  */
+
 

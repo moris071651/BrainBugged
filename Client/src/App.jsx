@@ -9,6 +9,7 @@ import LogIn from "./pages/LogIn/LogIn.jsx";
 import Profile from "./pages/Profile/Profile.jsx";
 import CreateProject from "./pages/CreateProject/CreateProject.jsx";
 import HelpProject from "./pages/HelpProject/HelpProject.jsx";
+import ApproveProject from "./pages/ApproveProject/ApproveProject.jsx";
 
 import "./App.css";
 import useToken from "./hooks/useToken.js";
@@ -43,6 +44,9 @@ function App() {
               </Route>
               <Route exact path="/help/:projectID">
                 <HelpProject />
+              </Route>
+              <Route exact path="/approve/:projectID">
+                <ApproveProject />
               </Route>
             </>
           )}
