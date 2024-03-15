@@ -16,6 +16,7 @@ import "./App.css";
 
 import useToken from "./hooks/useToken.js";
 import useCheckSession from "./hooks/useCheckSession.js";
+import Projects from "./pages/Projects/Projects.jsx";
 
 function App() {
   const { token } = useToken();
@@ -49,6 +50,9 @@ function App() {
               </Route>
               <Route exact path="/application/:projectID">
                 <ApplicationProject />
+              </Route>
+              <Route exact path="/projects">
+                <Projects />
               </Route>
               <Route exact path="/approve/:projectID">
                 <ApprovePeople />
