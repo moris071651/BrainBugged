@@ -1,0 +1,98 @@
+.Profile {
+  display: grid;
+  padding: 2rem;
+  grid-template-columns: 30% auto;
+}
+
+.Profile > div:nth-child(1) > div:nth-child(1) {
+  margin-bottom: 3rem;
+}
+
+.Profile > div:nth-child(1) > div:nth-child(1) > img {
+  width: 20rem;
+}
+
+.Profile > div:nth-child(1) > div:nth-child(1) > h1 {
+  font-size: 3rem;  
+  font-weight: bold;
+  margin: 3rem 0;
+}
+
+.Profile > div:nth-child(1) > div:nth-child(1) > p {
+  font-size: 1.5rem;
+}
+
+.Profile > div:nth-child(1) > div:nth-child(1) > p > span {
+  margin-right: .6rem;
+  font-weight: bolder;
+}
+
+.Profile > div:nth-child(1) > div:nth-child(2) > h2 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.Profile > div:nth-child(1) > div:nth-child(2) > div {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-self: start;
+  align-content: start;
+  gap: 1rem 2rem;
+}
+
+.Profile > div:nth-child(1) > div:nth-child(2) > div > * {
+  background-color: #F5F5F5;
+  padding: .4rem 2rem;
+  font-size: large;
+  border: 0;
+  border-radius: 50px;
+}
+
+.Profile > div:nth-child(1) > div:nth-child(2) > div > button {
+  background-color: transparent;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.Profile > div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+}
+
+.Profile > div:nth-child(2) > h1 {
+  font-size: 3rem;
+  margin-bottom: 3rem;
+}
+
+.Profile > div:nth-child(2) > div {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.Profile > div:nth-child(2) > div > a {
+  padding: 1rem 2rem;
+  background-color: white;
+  box-shadow: 0 0 5px  rgba(0, 0, 0, 0.5);
+}
+
+.Profile > div:nth-child(2) > div > a > h3 {
+  font-size: 2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+}
+
+.Profile > div:nth-child(2) > div > a > h3 > img {
+  margin-right: 1rem;
+  height: 2rem;
+}
+
+.Profile > div:nth-child(2) > div > a > p {
+  text-align: start;
+  margin: 1rem;
+}
+
+

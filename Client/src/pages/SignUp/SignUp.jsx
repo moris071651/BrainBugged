@@ -46,13 +46,18 @@ const SignUp = () => {
       }),
     })
       .then((response) => {
-        return response.json();
+          return response.json();
       })
       .then((response) => {
-        localStorage.setItem("session", response.cookie);
-        // location.href = "/";
+        if (response?.error) {
+          alert(response.error)
+        } else if (response?.cookie) {
+          localStorage.setItem("session", response.cookie);
+          location.href = "/";
+        }
       })
       .catch((error) => {
+        alert('Something went wrong')
         console.error(error);
       });
   };

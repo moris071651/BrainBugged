@@ -1,0 +1,82 @@
+.HelpProject {
+  width: 100%;
+  padding: 6rem 10rem;
+}
+
+.HelpProject > div {
+  margin-bottom: 6rem;
+}
+
+.HelpProject > div:nth-child(1) {
+  margin-bottom: 5rem;
+}
+
+.HelpProject > div:nth-child(1) > h3 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.HelpProject > div:nth-child(1) > h1 {
+  font-size: 6rem;
+  font-weight: bolder;
+  margin-bottom: 2rem;
+}
+
+.HelpProject > div:nth-child(1) > p {
+  font-size: 2rem;
+}
+
+.HelpProject > div:nth-child(2) > h2 {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+}
+.HelpProject > div:nth-child(2) > h2 > span {
+  color: #591AC0;
+  font-weight: bold;
+}
+
+.HelpProject > div:nth-child(2) > ol {
+  display: grid;
+  gap: 6rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.HelpProject > div:nth-child(2) > ol > li {
+  font-size: 2rem;
+}
+
+.HelpProject > div:nth-child(3) > h2 {
+  font-size: 5rem;
+  font-weight: bold;
+}
+
+.HelpProject > div:nth-child(3) > h2 > span {
+  color: #591AC0;
+}
+
+.HelpProject > div:nth-child(3) > form {
+  display: flex;
+  gap: 5rem;
+  align-items: baseline;
+  flex-direction: row;
+}
+
+.HelpProject > div:nth-child(3) > form > input {
+  border: 0;
+  font-size: 2rem;
+  border-bottom: 4px solid #D9D9D9;
+}
+
+.HelpProject > div:nth-child(3) > form > button {
+  border-radius: 16px;
+  font-size: 2rem;
+  color: white;
+  background-color: #8759D0;
+  padding: 0.5rem 6rem;
+  border: 0;
+}
+
+.HelpProject > div:nth-child(3) > p {
+  margin-top: 2rem;
+  font-size: 2rem;
+}

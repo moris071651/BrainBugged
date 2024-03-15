@@ -9,19 +9,19 @@ const NavBar = () =>  {
   return (
     <div className="NavBar">
       <div>
-        <Link class="navbar-brand" href="#">
+        <Link className="navbar-brand" to="#">
           (CO)do
         </Link>
       </div>
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <Link className="nav-link">About</Link>
+      <ul className="navbar-nav">
+        <li className="nav-item">
+          <Link className="nav-link" to="#">About</Link>
         </li>
-        <li class="nav-item">
-          <Link className="nav-link">Your todays theme</Link>
+        <li className="nav-item">
+          <Link className="nav-link" to="#">Your todays theme</Link>
         </li>
-        <li class="nav-item">
-          <Link className="nav-link">Your account</Link>
+        <li className="nav-item">
+          <Link className="nav-link" to="#">Your account</Link>
         </li>
       </ul>
     </div>

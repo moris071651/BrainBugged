@@ -6,6 +6,10 @@ import Footer from "./component/Footer/Footer.jsx";
 import SignUp from "./pages/SignUp/SignUp.jsx";
 import LogIn from "./pages/LogIn/LogIn.jsx";
 
+import Profile from "./pages/Profile/Profile.jsx";
+import CreateProject from "./pages/CreateProject/CreateProject.jsx";
+import HelpProject from "./pages/HelpProject/HelpProject.jsx";
+
 import "./App.css";
 import useToken from "./hooks/useToken.js";
 import useCheckSession from "./hooks/useCheckSession.js";
@@ -19,7 +23,7 @@ function App() {
       <NavBar />
       <div className="App">
         <Switch>
-          {(!isLoggedIn && (
+          {!isLoggedIn && (
             <>
               <Route exact path="/login">
                 <LogIn />
@@ -28,12 +32,20 @@ function App() {
                 <SignUp />
               </Route>
             </>
-          ))}
-          {(isLoggedIn && (
-            <div>
-              hello
-            </div>
-            ))}
+          )}
+          {isLoggedIn && (
+            <>
+              <Route exact path="/profile">
+                <Profile />
+              </Route>
+              <Route exact path="/create">
+                <CreateProject />
+              </Route>
+              <Route exact path="/help/:projectID">
+                <HelpProject />
+              </Route>
+            </>
+          )}
         </Switch>
       </div>
       <Footer />
