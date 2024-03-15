@@ -1,9 +1,9 @@
 .ApprovePeople {
-  padding: 2rem;
+  padding: 8rem;
 }
 
 .ApprovePeople > div:nth-child(1) > h1 {
-  font-size: 5rem;
+  font-size: 5.4rem;
   font-weight: bold;
 }
 
@@ -18,7 +18,7 @@
 .ApprovePeople > div:nth-child(1) > div > div {
   display: flex;
   padding: 4rem 3rem;
-  width: 900px;
+  width: 1100px;
   flex-direction: column;
   align-content: stretch;
   box-shadow: 0 0 5px  rgba(0, 0, 0, 0.5);
@@ -35,10 +35,15 @@
 }
 
 .ApprovePeople > div:nth-child(1) > div > div > ul {
+  list-style-type: none;
   display: grid;
   gap: 2rem;
   grid-template-rows: repeat(3, minmax(0, 1fr));
   margin: 2rem 0;
+}
+
+.ApprovePeople > div:nth-child(1) > div > div > ul > li > img {
+  margin-right: 1rem;
 }
 
 .ApprovePeople > div:nth-child(1) > div > div > ul > li {
@@ -82,5 +87,4 @@
 .ApprovePeople > div:nth-child(2) > p {
   font-size: 2rem;
 }
-
 
