@@ -9,9 +9,11 @@ import LogIn from "./pages/LogIn/LogIn.jsx";
 import Profile from "./pages/Profile/Profile.jsx";
 import CreateProject from "./pages/CreateProject/CreateProject.jsx";
 import HelpProject from "./pages/HelpProject/HelpProject.jsx";
-import ApproveProject from "./pages/ApproveProject/ApproveProject.jsx";
+import ApplicationProject from "./pages/ApplicationProject/ApplicationProject.jsx";
+import ApprovePeople from "./pages/ApprovePeople/ApprovePeople.jsx";
 
 import "./App.css";
+
 import useToken from "./hooks/useToken.js";
 import useCheckSession from "./hooks/useCheckSession.js";
 
@@ -45,8 +47,11 @@ function App() {
               <Route exact path="/help/:projectID">
                 <HelpProject />
               </Route>
+              <Route exact path="/application/:projectID">
+                <ApplicationProject />
+              </Route>
               <Route exact path="/approve/:projectID">
-                <ApproveProject />
+                <ApprovePeople />
               </Route>
             </>
           )}

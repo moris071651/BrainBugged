@@ -1,0 +1,86 @@
+.ApprovePeople {
+  padding: 2rem;
+}
+
+.ApprovePeople > div:nth-child(1) > h1 {
+  font-size: 5rem;
+  font-weight: bold;
+}
+
+.ApprovePeople > div:nth-child(1) > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3rem;
+  justify-items: center;
+  padding: 3rem;
+}
+
+.ApprovePeople > div:nth-child(1) > div > div {
+  display: flex;
+  padding: 4rem 3rem;
+  width: 900px;
+  flex-direction: column;
+  align-content: stretch;
+  box-shadow: 0 0 5px  rgba(0, 0, 0, 0.5);
+  background: white;
+}
+
+.ApprovePeople > div:nth-child(1) > div > div > h2 {
+  margin-top: 4rem;
+  font-size: 3rem;
+}
+
+.ApprovePeople > div:nth-child(1) > div > div > p {
+  font-size: 2rem;
+}
+
+.ApprovePeople > div:nth-child(1) > div > div > ul {
+  display: grid;
+  gap: 2rem;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  margin: 2rem 0;
+}
+
+.ApprovePeople > div:nth-child(1) > div > div > ul > li {
+  font-size: 1.5rem;
+}
+
+.ApprovePeople > div:nth-child(1) > div > div > div {
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ApprovePeople > div:nth-child(1) > div > div > div > button {
+  width: fit-content;
+  font-size: 2rem;
+  padding: 0.3rem 4rem;
+  border: 0;
+  color: white;
+  border-radius: 16px;
+}
+
+.ApprovePeople > div:nth-child(1) > div > div > div > button:nth-child(2) {
+  background-color: #8759D0;
+}
+
+.ApprovePeople > div:nth-child(1) > div > div > div > button:nth-child(1) {
+  background-color: #5F5F5F;
+}
+
+.ApprovePeople > div:nth-child(2) {
+  margin: 4rem 0;
+}
+.ApprovePeople > div:nth-child(2) > h2 {
+  font-size: 4rem;
+}
+
+.ApprovePeople > div:nth-child(2) > h2 > span {
+  color: #8759D0;
+}
+
+.ApprovePeople > div:nth-child(2) > p {
+  font-size: 2rem;
+}
+
+
