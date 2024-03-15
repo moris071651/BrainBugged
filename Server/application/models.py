@@ -44,17 +44,13 @@ def connect():
     # create table:
     cursor.execute("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), password VARCHAR(255), email VARCHAR(255), name VARCHAR(255))")
     cursor.execute("CREATE TABLE IF NOT EXISTS sess_keys (id INT AUTO_INCREMENT PRIMARY KEY, user VARCHAR(255), n TEXT, aes TEXT, iv TEXT)")
-<<<<<<< HEAD
-    #cursor.execute("CREATE TABLE IF NOT EXISTS skills (id INT AUTO_INCREMENT PRIMARY KEY, skills TEXT)")
-    #cursor.execute("CREATE TABLE IF NOT EXISTS user_skills (id_user INT, id_skills INT, FOREIGN KEY (id_user) REFERENCES users(id), FOREIGN KEY (id_skills) REFERENCES skills(id)")
-=======
+
     cursor.execute("CREATE TABLE IF NOT EXISTS skills (id INT AUTO_INCREMENT PRIMARY KEY, skills TEXT)")
     cursor.execute("CREATE TABLE IF NOT EXISTS user_skills (id_user INT PRIMARY KEY, id_skills INT)")
     cursor.execute("CREATE TABLE IF NOT EXISTS projects (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(255), description TEXT, team_description TEXT)")
     cursor.execute("CREATE TABLE IF NOT EXISTS project_skills (id_project INT PRIMARY KEY, id_skills INT)")
     cursor.execute("CREATE TABLE IF NOT EXISTS owner_projects (id_owner INT PRIMARY KEY, id_project INT)")
     cursor.execute("CREATE TABLE IF NOT EXISTS enrolled_projects (id_enrolled INT PRIMARY KEY, id_project INT)")
->>>>>>> 6f9681275570159fed488f7ce69f943594388e34
     # clear all the tables:
     # cursor.execute("DELETE FROM users")
     # cursor.execute("DELETE FROM sess_keys")
