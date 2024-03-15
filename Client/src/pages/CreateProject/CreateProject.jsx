@@ -60,20 +60,15 @@ const CreateProject = () => {
         style={customStyles}
         contentLabel="Example Modal"
     >
-        <h2>Hello</h2>
-        <button onClick={() => setIsOpen(false)}>close</button>
-        <div>I am a modal</div>
-        <form>
-            <input />
-            <button>tab navigation</button>
-            <button>stays</button>
-            <button>inside</button>
-            <button>the modal</button>
-        </form>
+        <div onClick={() => setIsOpen(false)}>X</div>
+        <input type="text"/>
+        <p>Category</p>
+
     </Modal>
     <form className="CreateProject" onSubmit={sendData}>
       <h1>Creating a project</h1>
       <input
+        className="inputfocus"
         type="text"
         value={projectName}
         onChange={(e) => {
@@ -90,6 +85,7 @@ const CreateProject = () => {
               setProjectDesc(e.target.value);
             }}
             placeholder="Project Description"
+            className="inputfocus"
           ></textarea>
           <textarea
             id="HelpDesc"
@@ -98,11 +94,12 @@ const CreateProject = () => {
               setHelpDesc(e.target.value);
             }}
             placeholder="Team Description"
+            className="inputfocus"
           ></textarea>
         </div>
         <div>
-          <h2>Skills Needed</h2>
-          <div>
+          <h2>What skills are you searching for?</h2>
+          <div className="SkillSet">
             <p>App development</p>
             <p>Figma</p>
             <p>Pizza eating</p>
@@ -110,7 +107,11 @@ const CreateProject = () => {
             <p>Figma</p>
             <div onClick={() => setIsOpen(true)}>+</div>
           </div>
-          <button type="submit">Create project</button>
+          <div className="ButtonHighlight">
+          <button type="submit">
+            Create project
+          </button>
+          </div>
         </div>
       </div>
     </form>

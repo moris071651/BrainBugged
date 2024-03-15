@@ -15,10 +15,10 @@ const NavBar = () =>  {
       </div>
       <ul className="navbar-nav">
         <li className="nav-item">
-          <Link className="nav-link" to="#">About</Link>
+          <Link className="nav-link" to="#">D aily project</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="#">Your todays theme</Link>
+          <Link className="nav-link" to="#">All projects</Link>
         </li>
         <li className="nav-item">
           <Link className="nav-link" to="#">Your account</Link>
