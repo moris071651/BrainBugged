@@ -4,6 +4,20 @@ import useToken from "../../hooks/useToken";
 
 import "./CreateProject.css";
 
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root');
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+    },
+};
+
 const CreateProject = () => {
   const [projectName, setProjectName] = useState("");
 
@@ -11,6 +25,9 @@ const CreateProject = () => {
   const [helpDesc, setHelpDesc] = useState("");
 
   const { token } = useToken();
+
+  const [modalIsOpen, setIsOpen] = useState(false);
+
 
   const sendData = (e) => {
     e.preventDefault();
@@ -35,6 +52,25 @@ const CreateProject = () => {
   };
 
   return (
+    <>
+    <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={() => null}
+        onRequestClose={() => setIsOpen(false)}
+        style={customStyles}
+        contentLabel="Example Modal"
+    >
+        <h2>Hello</h2>
+        <button onClick={() => setIsOpen(false)}>close</button>
+        <div>I am a modal</div>
+        <form>
+            <input />
+            <button>tab navigation</button>
+            <button>stays</button>
+            <button>inside</button>
+            <button>the modal</button>
+        </form>
+    </Modal>
     <form className="CreateProject" onSubmit={sendData}>
       <h1>Creating a project</h1>
       <input
@@ -72,12 +108,13 @@ const CreateProject = () => {
             <p>Pizza eating</p>
             <p>Webflow</p>
             <p>Figma</p>
-            <button>+</button>
+            <div onClick={() => setIsOpen(true)}>+</div>
           </div>
           <button type="submit">Create project</button>
         </div>
       </div>
     </form>
+    </>
   );
 };
 
