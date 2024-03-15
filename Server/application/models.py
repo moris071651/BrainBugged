@@ -27,6 +27,8 @@ def connect():
     # create table:
     cursor.execute("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), password VARCHAR(255), email VARCHAR(255), name VARCHAR(255))")
     cursor.execute("CREATE TABLE IF NOT EXISTS sess_keys (id INT AUTO_INCREMENT PRIMARY KEY, user VARCHAR(255), n TEXT, aes TEXT, iv TEXT)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS skills (id INT AUTO_INCREMENT PRIMARY KEY, skills TEXT)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS user_skills (id_user INT, id_skills INT, FOREIGN KEY (id_user) REFERENCES users(id), FOREIGN KEY (id_skills) REFERENCES skills(id)")
     # clear all the tables:
     # cursor.execute("DELETE FROM users")
     # cursor.execute("DELETE FROM sess_keys")
@@ -114,3 +116,31 @@ def check_pass(username, password):
     if len(users) == 0:
         return False
     return True
+
+def put_skills(username, skills):
+    #get the id of the user
+    cursor, conn = connect()
+    id_user = cursor.execute(f"SELECT id FROM users WHERE username=%s", (username))
+    #get the id of the skills
+    for skill in skills:
+        cursor.execute(f"SELECT id FROM skills WHERE skills=%s", (skill))
+        id_skill = cursor.fetchall()
+        if len(id_skill) == 0:
+            cursor.execute(f"INSERT INTO skills (skills) VALUES (%s)", (skill))
+            id_skill = cursor.execute(f"SELECT id FROM skills WHERE skills=%s", (skill))
+        check = cursor.execute(f"SELECT * FROM user_skills WHERE id_user=%s AND id_skills=%s", (id_user, id_skill))
+        if len(check) == 0:
+            cursor.execute(f"INSERT INTO user_skills (id_user, id_skills) VALUES (%s, %s)", (id_user, id_skill))
+    conn.commit()
+
+def get_user_skills(username):
+    cursor, conn = connect()
+    id_user = cursor.execute(f"SELECT id FROM users WHERE username=%s", (username))
+    cursor.execute(f"SELECT id_skills FROM user_skills WHERE id_user=%s", (id_user))
+    skills_ids = cursor.fetchall()
+    skills = []
+    for id in skills_ids:
+        cursor.execute(f"SELECT skills FROM skills WHERE id=%s", (id))
+        skills.append(cursor.fetchall())
+    return skills
+
