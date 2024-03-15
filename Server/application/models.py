@@ -8,6 +8,7 @@ import hashlib
 from Crypto import Random
 from dotenv import load_dotenv
 import os
+import json
 
 load_dotenv()
 pwd = os.getenv("DB_PASSWORD")
@@ -270,10 +271,8 @@ def get_percentage(project_skills, user_skills):
     return percentage
 
 def find_max_precentages(all_precetages):
-    #all except below 30%
-    all_precetages = [perc for perc in all_precetages if perc > 30]
-    all_precetages.sort()
-    all_precetages = all_precetages[::-1]
+    all_precetages = [json.loads(x) for x in all_precetages if json.loads(x)["percentage"] > 40]
+    all_precetages = sorted(all_precetages, key=lambda x: x["percentage"], reverse=True)
     return all_precetages
 
 def get_percentage_list(all_projects, user_skills):
@@ -292,5 +291,5 @@ def get_percentage_list(all_projects, user_skills):
             skill = cursor.fetchone()
             skills.append(skill[0])
         percentage = get_percentage(skills, user_skills)
-        all_precetages.append(percentage)
+        all_precetages.append(json.dumps({"title": project, "percentage": percentage}))
     return all_precetages
