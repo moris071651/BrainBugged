@@ -351,7 +351,10 @@ def get_percentage_list(all_projects, user_skills):
             skill = cursor.fetchone()
             skills.append(skill[0])
         percentage = get_percentage(skills, user_skills)
-        all_precetages.append(json.dumps({"title": project, "percentage": percentage}))
+        cursor.execute(f"SELECT description FROM projects WHERE title=%s", (project))
+        description = cursor.fetchone()
+        description = description[0]
+        all_precetages.append(json.dumps({"title": project, "percentage": percentage, "skills": skills, "description": description}))
     return all_precetages
 
 
