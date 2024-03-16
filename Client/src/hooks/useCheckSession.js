@@ -16,12 +16,12 @@ const useCheckSession = ({ token, needRedirect = true, notLoggedUrl = "/login" }
         console.log(response)
         if (response.logged == true) {
           setIsLoggedIn(true);
-        } else if (location.href.indexOf("/login") === -1 && location.href.indexOf("/signup") === -1) {
-          // location.href = '/login'
+        } else if (location.href.indexOf("/login") === -1 && location.href.indexOf("/signup") === -1 && location.href.indexOf("/landing") === -1) {
+          location.href = '/login'
           // localStorage.removeItem('session')
         }
       })
-    } else if (location.href.indexOf("/login") === -1 && location.href.indexOf("/signup") === -1) {
+    } else if (location.href.indexOf("/login") === -1 && location.href.indexOf("/signup") === -1 && location.href.indexOf("/landing") === -1) {
       location.href = '/login'
     }
   }, [token]);

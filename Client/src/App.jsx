@@ -31,6 +31,9 @@ function App() {
         <Switch>
           {!isLoggedIn && (
             <>
+              <Route exact path="/landing">
+                <Landing />
+              </Route>
               <Route exact path="/login">
                 <LogIn />
               </Route>
@@ -61,9 +64,6 @@ function App() {
               </Route>
             </>
           )}
-          <Route exact path="/landing">
-            <Landing />
-          </Route>
         </Switch>
       </div>
       <Footer />
