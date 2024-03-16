@@ -188,3 +188,53 @@ def all_skills():
     skills = get_all_skills()
     resp = jsonify({"skills": skills})
     return resp
+
+@api.route("/applicants", methods=["GET", "POST"])
+def applicants():
+    if request.method == "POST":
+        cookie = request.headers.get("Authentication")
+        if cookie and auth_cookie(cookie):
+            # get the body as json
+            body = request.json
+            # get the data from the AI
+            title = body.get("title")
+            description = body.get("description")
+            if add_applicant(cookie, title, description):
+                resp = jsonify({"added": True})
+            else:
+                resp = jsonify({"added": False})
+            return resp
+        else:
+            resp = jsonify({"logged": False})
+            return resp
+    else:
+        # get cookie from header
+        cookie = request.headers.get("Authentication")
+        # check if the cookie is valid
+        if cookie and auth_cookie(cookie):
+            title = request.headers.get("Title")
+            # get the projects of the user
+            applicants = get_applicants(title)
+            #make to json array with id projects
+            resp = jsonify({"applicants": applicants})
+            return resp
+        else:
+            resp = jsonify({"logged": False})
+            return resp
+        
+@api.route("/reject_applicant", methods=["POST"])
+def reject_applicant():
+    cookie = request.headers.get("Authentication")
+    if cookie and auth_cookie(cookie):
+        # get the body as json
+        body = request.json
+        # get the data from the AI
+        title = body.get("title")
+        if reject_applicant(cookie, title):
+            resp = jsonify({"rejected": True})
+        else:
+            resp = jsonify({"rejected": False})
+        return resp
+    else:
+        resp = jsonify({"logged": False})
+        return resp
