@@ -1,7 +1,6 @@
 .SignUp {
   display: grid;
   padding: 4rem 0;
-  height: calc(100vh - 6rem);
   justify-content: center;
   grid-template-rows: min-content 1fr;
 }
