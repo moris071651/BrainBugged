@@ -61,7 +61,7 @@ function App() {
               </Route>
             </>
           )}
-          <Route exact path="/">
+          <Route exact path="/landing">
             <Landing />
           </Route>
         </Switch>
