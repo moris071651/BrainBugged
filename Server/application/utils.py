@@ -129,4 +129,7 @@ def gat_ai_data(title):
         data = get_AI_responce(title)
         update_ai_data(title, data)
         return data
+    
+def get_all_skills():
+    return get_unique_skills()
 

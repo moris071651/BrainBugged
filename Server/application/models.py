@@ -405,3 +405,10 @@ def update_ai_data(title, data):
     conn.commit()
     return True
 
+def get_unique_skills():
+    cursor, conn = connect()
+    cursor.execute(f"SELECT skill FROM skills")
+    skills = cursor.fetchall()
+    skills = [skill[0] for skill in skills]
+    return skills
+

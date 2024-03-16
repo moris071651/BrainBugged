@@ -181,3 +181,10 @@ def ai_data():
     data = gat_ai_data(body.get("title"))
     resp = jsonify({"ai_short_description": data[0], "ai_points": [test for test in data[1].split("\n")[::2]], "ai_help": data[2]})
     return resp
+
+@api.route("/all_skills", methods=["GET"])
+def all_skills():
+    # get all the skills
+    skills = get_all_skills()
+    resp = jsonify({"skills": skills})
+    return resp
