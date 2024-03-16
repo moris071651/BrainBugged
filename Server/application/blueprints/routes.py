@@ -137,7 +137,7 @@ def enroll():
             # get the body as json
             body = request.json
             # enroll the user in the project
-            if enroll_project(cookie, body.get("title")):
+            if enroll_project(body.get("username"), body.get("title")):
                 resp = jsonify({"enrolled": True})
             else:
                 resp = jsonify({"enrolled": False})
@@ -222,15 +222,16 @@ def applicants():
             resp = jsonify({"logged": False})
             return resp
         
-@api.route("/reject_applicant", methods=["POST"])
-def reject_applicant():
+@api.route("/reject_applicants", methods=["POST"])
+def reject_applicants():
     cookie = request.headers.get("Authentication")
     if cookie and auth_cookie(cookie):
         # get the body as json
         body = request.json
         # get the data from the AI
         title = body.get("title")
-        if reject_applicant(cookie, title):
+        username = body.get("username")
+        if reject_applicant(username, title):
             resp = jsonify({"rejected": True})
         else:
             resp = jsonify({"rejected": False})

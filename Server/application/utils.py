@@ -100,10 +100,11 @@ def get_projects(cookie):
     except:
         return False
     
-def enroll_project(cookie, title):
+def enroll_project(username, title):
     try:
-        username = get_user_from_cookie(cookie)
         if put_enroll(username, title):
+            #remove from waiters
+            remove_waiter(username, title)
             return True
         else:
             return False
@@ -150,9 +151,8 @@ def get_applicants(title):
     except:
         return False
     
-def reject_applicant(cookie, title):
+def reject_applicant(username, title):
     try:
-        username = get_user_from_cookie(cookie)
         remove_waiter(username, title)
         return True
     except:
