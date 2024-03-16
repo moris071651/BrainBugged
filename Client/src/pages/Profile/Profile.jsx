@@ -75,7 +75,7 @@ const Profile = () => {
     <div className="Profile">
       <div>
         <div>
-          <img src="/src/assets/profile.svg" alt="Profile Picture" />
+          <img src="/src/assets/iconperson.png" alt="Profile Picture" />
           <h1>{profile.name}</h1>
           <p>
             <span>#</span>
@@ -87,7 +87,7 @@ const Profile = () => {
           </p>
         </div>
         <div>
-          <h2>Skills</h2>
+          <h2 className="Inter">Skills</h2>
           <div>
             {skills.map((skill) => {
               return <p>{skill}</p>;
@@ -97,7 +97,7 @@ const Profile = () => {
         </div>
       </div>
       <div>
-        <h1>Projects enrolled in</h1>
+        <h2 className="Inter">Projects enrolled in</h2>
         <div>
           {projects.map((title) => {
             return (
