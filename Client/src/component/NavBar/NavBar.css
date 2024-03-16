@@ -12,6 +12,8 @@
   grid-template-columns: min-content 1fr;
 
   background-color: var(--Color-Dark);
+
+  z-index: 10;
 }
 
 .NavBar > * {

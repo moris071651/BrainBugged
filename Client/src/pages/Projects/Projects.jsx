@@ -67,16 +67,12 @@ const Projects = () => {
           <button>the modal</button>
         </form>
       </Modal>
-      <h1>Разгледай предложените идеи</h1>
+      <h1>View <span className="span">suggested projects</span></h1>
       <p className="basic-p">
-        Lorem ipsum dolor sit amet consectetur. Tempor ornare venenatis
-        curabitur dui adipiscing. Facilisis id arcu posuere in eu bibendum
-        tortor.Lorem ipsum dolor sit amet consectetur. Tempor ornare venenatis
-        curabitur dui adipiscing. Facilisis id arcu posuere in eu bibendum
-        tortor.
+      The projects below are suggested to you based on your hobbies and past projects you have participated in. Soon you will be able to search for a project by name, but for now this feature is under development.
       </p>
-      <p className="highlight-p">Или предложи своя.</p>
-      <h2>Съвпадащи с вашите интересите</h2>
+      <p className="highlight-p Inter">Or <a href="/create" className="span">suggest your idea.</a></p>
+      <h2>According to <span className="span">your skills</span></h2>
       <div style={{ display: "flex", flexDirection: "column", gap: "20px " }}>
         {projects.map((project) => {
             console.log(project)
@@ -105,6 +101,7 @@ const Projects = () => {
           );
         })}
       </div>
+      <img src="/src/assets/arts/circle1.svg" alt="" className="art-circle" />
     </div>
   );
 };
