@@ -329,6 +329,7 @@ def get_percentage(project_skills, user_skills):
         if skill in user_skills:
             percentage += 1
     percentage = (percentage/base)*100
+    percentage = round(percentage, 0)
     return percentage
 
 def find_max_precentages(all_precetages):
