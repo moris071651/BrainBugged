@@ -59,11 +59,11 @@ function App() {
               <Route exact path="/approve/:projectID">
                 <ApprovePeople />
               </Route>
-              <Route exact path="/landing">
-                <Landing />
-              </Route>
             </>
           )}
+          <Route exact path="/">
+            <Landing />
+          </Route>
         </Switch>
       </div>
       <Footer />
