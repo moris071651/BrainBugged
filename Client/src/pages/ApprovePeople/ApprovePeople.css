@@ -2,6 +2,7 @@
   padding: 8rem;
 }
 
+
 .ApprovePeople > div:nth-child(1) > h1 {
   font-size: 5.4rem;
   font-weight: bold;
@@ -26,7 +27,7 @@
 
 .ApprovePeople > div:nth-child(1) > div > div > h2 {
   margin-top: 4rem;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 .ApprovePeople > div:nth-child(1) > div > div > p {
@@ -76,14 +77,15 @@
   margin: 4rem 0;
 }
 .ApprovePeople > div:nth-child(2) > h2 {
-  font-size: 4rem;
+  font-size: 3rem;
 }
 
 .ApprovePeople > div:nth-child(2) > h2 > span {
   color: #8759D0;
+  font-family: Inter;
 }
 
 .ApprovePeople > div:nth-child(2) > p {
-  font-size: 2rem;
+  font-size: 1.4rem;
 }
 

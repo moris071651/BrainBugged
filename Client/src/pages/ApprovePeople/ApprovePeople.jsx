@@ -65,11 +65,7 @@ const ApprovePeople = () => {
           Време ли е за <span>следваща стъпка</span>?
         </h2>
         <p>
-          Lorem ipsum dolor sit amet consectetur. Tempor ornare venenatis
-          curabitur dui adipiscing. Facilisis id arcu posuere in eu bibendum
-          tortor.Lorem ipsum dolor sit amet consectetur. Tempor ornare venenatis
-          curabitur dui adipiscing. Facilisis id arcu posuere in eu bibendum
-          tortor.
+          Are you  ready with your team build? Continue with your next steps! Close the project for enrolling and go straight to planning and organizing phase. 
         </p>
       </div>
     </div>

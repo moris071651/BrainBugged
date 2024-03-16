@@ -91,7 +91,6 @@ const CreateProject = () => {
           }}
           type="text"
         />
-        <p>Category</p>
       </Modal>
       <form className="CreateProject" onSubmit={sendData}>
         <h1>Creating a project</h1>
