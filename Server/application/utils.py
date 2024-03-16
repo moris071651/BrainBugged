@@ -133,3 +133,27 @@ def gat_ai_data(title):
 def get_all_skills():
     return get_unique_skills()
 
+def add_applicant(cookie, title, description):
+    try:
+        username = get_user_from_cookie(cookie)
+        if add_to_waiters(username, title, description):
+            return True
+        else:
+            return False
+    except:
+        return False
+    
+def get_applicants(title):
+    try:
+        applicants = get_waiters(title)
+        return applicants
+    except:
+        return False
+    
+def reject_applicant(cookie, title):
+    try:
+        username = get_user_from_cookie(cookie)
+        remove_waiter(username, title)
+        return True
+    except:
+        return False

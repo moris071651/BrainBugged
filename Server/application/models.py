@@ -72,6 +72,7 @@ def connect():
     cursor.execute("CREATE TABLE IF NOT EXISTS project_skills (id INT AUTO_INCREMENT PRIMARY KEY, id_project INT, id_skills INT)")
     cursor.execute("CREATE TABLE IF NOT EXISTS owner_projects (id INT AUTO_INCREMENT PRIMARY KEY, id_owner INT, id_project INT)")
     cursor.execute("CREATE TABLE IF NOT EXISTS enrolled_projects (id INT AUTO_INCREMENT PRIMARY KEY, id_enrolled INT, id_project INT)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS project_waiters (id INT AUTO_INCREMENT PRIMARY KEY, id_waiter INT, id_project INT, description TEXT)")
 
     #test: insert int skills if not already there skill - testus
     # clear all the tables:
@@ -412,3 +413,53 @@ def get_unique_skills():
     skills = [skill[0] for skill in skills]
     return skills
 
+
+def add_to_waiters(username, title, description):
+    cursor, conn = connect()
+    cursor.execute(f"SELECT id FROM users WHERE username=%s", (username))
+    id_user = cursor.fetchone()
+    id_user = id_user[0]
+    cursor.execute(f"SELECT id FROM projects WHERE title=%s", (title))
+    id_project = cursor.fetchone()
+    id_project = id_project[0]
+    cursor.execute(f"SELECT * FROM project_waiters WHERE id_waiter=%s AND id_project=%s", (id_user, id_project))
+    check = cursor.fetchone()
+    if check:
+        return False
+    cursor.execute(f"INSERT INTO project_waiters (id_waiter, id_project, description) VALUES (%s, %s, %s)", (id_user, id_project, description))
+    conn.commit()
+    return True
+
+def get_waiters(title):
+    cursor, conn = connect()
+    cursor.execute(f"SELECT id FROM projects WHERE title=%s", (title))
+    id_project = cursor.fetchone()
+    id_project = id_project[0]
+    cursor.execute(f"SELECT id_waiter FROM project_waiters WHERE id_project=%s", (id_project))
+    waiters = cursor.fetchall()
+    usernames = []
+    if len(waiters) == 0:
+        return usernames
+    waiters = [waiter[0] for waiter in waiters]
+    for waiter in waiters:
+        # get the username and the desription
+        cursor.execute(f"SELECT username FROM users WHERE id=%s", (waiter))
+        username = cursor.fetchone()
+        username = username[0]
+        cursor.execute(f"SELECT description FROM project_waiters WHERE id_waiter=%s AND id_project=%s", (waiter, id_project))
+        description = cursor.fetchone()
+        skills = get_user_skills(username)
+        usernames.append({"username": username, "description": description[0], "skills": skills})
+    return usernames
+
+def remove_waiter(username, title):
+    cursor, conn = connect()
+    cursor.execute(f"SELECT id FROM users WHERE username=%s", (username))
+    id_user = cursor.fetchone()
+    id_user = id_user[0]
+    cursor.execute(f"SELECT id FROM projects WHERE title=%s", (title))
+    id_project = cursor.fetchone()
+    id_project = id_project[0]
+    cursor.execute(f"DELETE FROM project_waiters WHERE id_waiter=%s AND id_project=%s", (id_user, id_project))
+    conn.commit()
+    return True
