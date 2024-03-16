@@ -1,0 +1,55 @@
+body{
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.Landing {
+    display: grid;
+    padding: 5rem 3rem;
+    grid-template-rows: min-content 1fr;
+    text-align: left;
+  }
+  
+  .Landing > h1 {
+    font-weight: 800;
+    font-size: 8rem;
+    color: #8540F5;
+  }
+
+  .Landing > h2 {
+    font-weight: 800;
+    font-size: 3rem;
+    color: #111111;
+  }
+
+  p{
+    font-size: 1.7rem;
+    width: 40rem;
+  }
+  
+  .buttonclass{
+    margin-top: 30px;
+    color: white;
+    font-size: 1.5rem;
+    background-color: var(--Color-Main-400);
+    padding: 4px 10px 4px 10px;
+    border: none;
+    width: 20rem;
+    border-radius: 15px;
+  }  
+
+  .art-circle{
+    position: absolute;
+    margin-left: -20%;
+    margin-top: -53%;
+    z-index: -1;
+    width: 60%;
+  }
+
+  .art-blob{
+    position: absolute;
+    margin-left: 40%;
+    margin-top: 5%;
+    width: 65%;
+    z-index: -1;
+  }

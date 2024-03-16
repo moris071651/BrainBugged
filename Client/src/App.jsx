@@ -18,6 +18,8 @@ import useToken from "./hooks/useToken.js";
 import useCheckSession from "./hooks/useCheckSession.js";
 import Projects from "./pages/Projects/Projects.jsx";
 
+import Landing from "./pages/Landing/Landing.jsx";
+
 function App() {
   const { token } = useToken();
   const { isLoggedIn } = useCheckSession({ token });
@@ -56,6 +58,9 @@ function App() {
               </Route>
               <Route exact path="/approve/:projectID">
                 <ApprovePeople />
+              </Route>
+              <Route exact path="/landing">
+                <Landing />
               </Route>
             </>
           )}
