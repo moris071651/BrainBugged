@@ -7,6 +7,16 @@
   padding: 4rem;
 }
 
+.span{
+  color: #8540F5;
+  font-family: Inter;
+}
+
+.art-circle{
+  padding-left: 5%;
+  width: 100%;
+}
+
 h1{
   font-family: "Inter";
   font-weight: 900;

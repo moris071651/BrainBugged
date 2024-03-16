@@ -1,6 +1,11 @@
+body{
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 .Profile {
   display: grid;
-  padding: 2rem;
+  padding: 3rem;
   grid-template-columns: 30% auto;
 }
 
@@ -15,7 +20,7 @@
 .Profile > div:nth-child(1) > div:nth-child(1) > h1 {
   font-size: 3rem;  
   font-weight: bold;
-  margin: 3rem 0;
+  margin: 3rem 0 1rem 0;
 }
 
 .Profile > div:nth-child(1) > div:nth-child(1) > p {
@@ -23,12 +28,12 @@
 }
 
 .Profile > div:nth-child(1) > div:nth-child(1) > p > span {
-  margin-right: .6rem;
+  margin-right: .5rem;
   font-weight: bolder;
 }
 
 .Profile > div:nth-child(1) > div:nth-child(2) > h2 {
-  font-size: 3rem;
+  font-size: 1.5rem;
   font-weight: bold;
 }
 
@@ -39,7 +44,7 @@
   flex-direction: row;
   justify-self: start;
   align-content: start;
-  gap: 1rem 2rem;
+  gap: .1rem .7rem;
 }
 
 .Profile > div:nth-child(1) > div:nth-child(2) > div > * {
@@ -48,6 +53,7 @@
   font-size: large;
   border: 0;
   border-radius: 50px;
+  width: fit-content;
 }
 
 .Profile > div:nth-child(1) > div:nth-child(2) > div > button {
@@ -63,7 +69,7 @@
 
 .Profile > div:nth-child(2) > h1 {
   font-size: 3rem;
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
 }
 
 .Profile > div:nth-child(2) > div {
@@ -73,9 +79,9 @@
 }
 
 .Profile > div:nth-child(2) > div > a {
-  padding: 1rem 2rem;
+  padding: 1rem 1.7rem;
   background-color: white;
-  box-shadow: 0 5px 10px  rgba(0, 0, 0, 0.09);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.09);
 }
 
 .Profile > div:nth-child(2) > div > a > h3 {
@@ -92,7 +98,11 @@
 
 .Profile > div:nth-child(2) > div > a > p {
   text-align: start;
-  margin: 1rem;
+  margin-top: 1rem;
+  font-size: 1.2rem;
 }
 
 
+.art-circle{
+  width: 10%;
+}

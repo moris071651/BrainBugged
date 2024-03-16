@@ -142,7 +142,7 @@ const CreateProject = () => {
         </div>
       </form>
     </>
-  );
+    );
 };
 
 export default CreateProject;

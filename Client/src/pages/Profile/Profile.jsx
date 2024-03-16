@@ -159,8 +159,9 @@ const Profile = () => {
           })}
         </div>
       </div>
+      <img src="/src/assets/arts/circle1.svg" alt="" className="art-circle" />
     </div>
-  );
+    );
 };
 
 export default Profile;

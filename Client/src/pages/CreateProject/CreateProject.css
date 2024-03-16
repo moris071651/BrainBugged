@@ -1,10 +1,10 @@
 .CreateProject {
   display: grid;
+  position: relative;
   grid-template-rows: min-content min-content 1fr;
   width: 100%;
   padding: 2rem;
   align-items: stretch;
-  height: calc(100vh - 6rem);
 }
 
 .CreateProject > input {
@@ -87,6 +87,7 @@
   font-size: large;
   border: 0;
   border-radius: 50px;
+  width: auto;
 }
 
 .pointer{
